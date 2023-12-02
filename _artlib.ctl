@@ -58,6 +58,13 @@ float[3] hsl2rgb(float hsl[3])
 }
 
 
+float[3] mkfloat3(float x, float y, float z)
+{
+    float res[3] = { x, y, z };
+    return res;
+}
+
+
 float gauss(float mu, float sigma2, float x)
 {
     return exp(-((x - mu)*(x - mu)) / (2 * sigma2));
@@ -87,6 +94,16 @@ float fmax(float a, float b)
 float clamp(float x, float lo, float hi)
 {
     return fmax(fmin(x, hi), lo);
+}
+
+
+float sgn(float x)
+{
+    if (x < 0) {
+        return -1;
+    } else {
+        return 1;
+    }
 }
 
 
