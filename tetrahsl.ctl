@@ -24,6 +24,22 @@ float[3] torgb(float r, float g, float b, float dh, float ds, float dl)
     return hsl2rgb(hsl);
 }
 
+
+float[3] uvtorgb(float r, float g, float b, float du, float dv, float dl)
+{
+    float l = luminance(r, g, b);
+    float u = l - b;
+    float v = r - l;
+    u = u + du;
+    v = v + dv;
+    l = l + dl;
+    float bb = l - u;
+    float rr = v + l;
+    float gg = (l - rr * xyz_rec2020[1][0] - bb * xyz_rec2020[1][2]) / xyz_rec2020[1][1];
+    float res[3] = { rr, gg, bb };
+    return res;
+}
+
 // @ART-param: ["RED_H", "Hue", -1.0, 1.0, 0.0, 0.001, "Red"]
 // @ART-param: ["RED_S", "Saturation", -1.0, 1.0, 0.0, 0.001, "Red"]
 // @ART-param: ["RED_L", "Lightness", -1.0, 1.0, 0.0, 0.001, "Red"]
@@ -48,13 +64,12 @@ float[3] torgb(float r, float g, float b, float dh, float ds, float dl)
 // @ART-param: ["YEL_S", "Saturation", -1.0, 1.0, 0.0, 0.001, "Yellow"]
 // @ART-param: ["YEL_L", "Lightness", -1.0, 1.0, 0.0, 0.001, "Yellow"]
 
-// @ART-param: ["BLK_R", "Red", -0.1, 0.1, 0.0, 0.0001, "Black"]
-// @ART-param: ["BLK_G", "Green", -0.1, 0.1, 0.0, 0.0001, "Black"]
-// @ART-param: ["BLK_B", "Blue", -0.1, 0.1, 0.0, 0.0001, "Black"]
+// @ART-param: ["BLK_V", "Green/Magenta", -1.0, 1.0, 0.0, 0.001, "Black"]
+// @ART-param: ["BLK_U", "Blue/Yellow", -1.0, 1.0, 0.0, 0.001, "Black"]
+// @ART-param: ["BLK_O", "Offset/Lift", -1.0, 1.0, 0.0, 0.001, "Black"]
 
-// @ART-param: ["WHT_R", "Red", 0.5, 1.5, 1, 0.001, "White"]
-// @ART-param: ["WHT_G", "Green", 0.5, 1.5, 1, 0.001, "White"]
-// @ART-param: ["WHT_B", "Blue", 0.5, 1.5, 1, 0.001, "White"]
+// @ART-param: ["WHT_V", "Green/Magenta", -1.0, 1.0, 0.0, 0.001, "White"]
+// @ART-param: ["WHT_U", "Blue/Yellow", -1.0, 1.0, 0.0, 0.001, "White"]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,
@@ -66,11 +81,11 @@ void ART_main(varying float r, varying float g, varying float b,
               float CYN_H, float CYN_S, float CYN_L,
               float MAG_H, float MAG_S, float MAG_L,
               float YEL_H, float YEL_S, float YEL_L,
-              float BLK_R, float BLK_G, float BLK_B,
-              float WHT_R, float WHT_G, float WHT_B)              
+              float BLK_V, float BLK_U, float BLK_O,
+              float WHT_V, float WHT_U)
 {
-    float blk[3] = {BLK_R, BLK_G, BLK_B};
-    float wht[3] = {WHT_R, WHT_G, WHT_B};
+    float blk[3] = uvtorgb(0, 0, 0, BLK_U / 25, BLK_V / 25, BLK_O / 25);
+    float wht[3] = uvtorgb(1, 1, 1, WHT_U, WHT_V, 0);
     float red[3] = torgb(1, 0, 0, RED_H, RED_S, RED_L);
     float grn[3] = torgb(0, 1, 0, GRN_H, GRN_S, GRN_L);
     float blu[3] = torgb(0, 0, 1, BLU_H, BLU_S, BLU_L);
