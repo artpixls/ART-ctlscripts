@@ -28,9 +28,9 @@
 // @ART-colorspace: "rec2020"
 // @ART-label: "Tetrahedral interpolation"
 
-// @ART-param: ["BLK_R", "Red", -0.25, 1.0, 0.0, 0.001, "Black"]
-// @ART-param: ["BLK_G", "Green", -0.25, 1.0, 0.0, 0.001, "Black"]
-// @ART-param: ["BLK_B", "Blue", -0.25, 1.0, 0.0, 0.001, "Black"]
+// @ART-param: ["BLK_R", "Red", -0.1, 0.1, 0.0, 0.0001, "Black"]
+// @ART-param: ["BLK_G", "Green", -0.1, 0.1, 0.0, 0.0001, "Black"]
+// @ART-param: ["BLK_B", "Blue", -0.1, 0.1, 0.0, 0.0001, "Black"]
 
 // @ART-param: ["WHT_R", "Red",0.0, 1.25, 1.0,  0.001, "White"]
 // @ART-param: ["WHT_G", "Green",0.0, 1.25, 1.0,  0.001, "White"]
