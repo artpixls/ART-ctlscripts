@@ -40,6 +40,15 @@ float[3] uvtorgb(float r, float g, float b, float du, float dv, float dl)
     return res;
 }
 
+
+void hs2uv(float h, float s, output float u, output float v)
+{
+    float a = h / 180.0 * M_PI;
+    float f = s;
+    u = f * sin(a);
+    v = f * cos(a);
+}
+
 // @ART-param: ["RED_H", "Hue", -1.0, 1.0, 0.0, 0.001, "Red"]
 // @ART-param: ["RED_S", "Saturation", -1.0, 1.0, 0.0, 0.001, "Red"]
 // @ART-param: ["RED_L", "Lightness", -1.0, 1.0, 0.0, 0.001, "Red"]
@@ -64,12 +73,12 @@ float[3] uvtorgb(float r, float g, float b, float du, float dv, float dl)
 // @ART-param: ["YEL_S", "Saturation", -1.0, 1.0, 0.0, 0.001, "Yellow"]
 // @ART-param: ["YEL_L", "Lightness", -1.0, 1.0, 0.0, 0.001, "Yellow"]
 
-// @ART-param: ["BLK_V", "Green/Magenta", -1.0, 1.0, 0.0, 0.001, "Black"]
-// @ART-param: ["BLK_U", "Blue/Yellow", -1.0, 1.0, 0.0, 0.001, "Black"]
+// @ART-param: ["BLK_H", "Hue", 0, 360.0, 0.0, 0.1, "Black"]
+// @ART-param: ["BLK_S", "Saturation", 0.0, 1.0, 0.0, 0.01, "Black"]
 // @ART-param: ["BLK_O", "Offset/Lift", -1.0, 1.0, 0.0, 0.001, "Black"]
 
-// @ART-param: ["WHT_V", "Green/Magenta", -1.0, 1.0, 0.0, 0.001, "White"]
-// @ART-param: ["WHT_U", "Blue/Yellow", -1.0, 1.0, 0.0, 0.001, "White"]
+// @ART-param: ["WHT_H", "Hue", 0, 360.0, 0.0, 0.1, "White"]
+// @ART-param: ["WHT_S", "Saturation", 0.0, 1.0, 0.0, 0.01, "White"]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,
@@ -81,11 +90,17 @@ void ART_main(varying float r, varying float g, varying float b,
               float CYN_H, float CYN_S, float CYN_L,
               float MAG_H, float MAG_S, float MAG_L,
               float YEL_H, float YEL_S, float YEL_L,
-              float BLK_V, float BLK_U, float BLK_O,
-              float WHT_V, float WHT_U)
+              float BLK_H, float BLK_S, float BLK_O,
+              float WHT_H, float WHT_S)
 {
-    float blk[3] = uvtorgb(0, 0, 0, BLK_U / 25, BLK_V / 25, BLK_O / 25);
-    float wht[3] = uvtorgb(1, 1, 1, WHT_U, WHT_V, 0);
+    float blk_u;
+    float blk_v;
+    hs2uv(BLK_H, BLK_S * 0.02, blk_u, blk_v);
+    float blk[3] = uvtorgb(0, 0, 0, blk_u, blk_v, BLK_O / 25);
+    float wht_u;
+    float wht_v;
+    hs2uv(WHT_H, WHT_S * 0.75, wht_u, wht_v);
+    float wht[3] = uvtorgb(1, 1, 1, wht_u, wht_v, 0);
     float red[3] = torgb(1, 0, 0, RED_H, RED_S, RED_L);
     float grn[3] = torgb(0, 1, 0, GRN_H, GRN_S, GRN_L);
     float blu[3] = torgb(0, 0, 1, BLU_H, BLU_S, BLU_L);
