@@ -39,11 +39,22 @@ float luminance(float r, float g, float b)
 }
 
 
-float[3] rgb2hsl(float r, float g, float b)
+float[3] rgb2luv(float r, float g, float b)
 {
     float l = luminance(r, g, b);
     float u = l - b;
     float v = r - l;
+    float res[3] = {l, u, v};
+    return res;
+}
+
+
+float[3] rgb2hsl(float r, float g, float b)
+{
+    float luv[3] = rgb2luv(r, g, b);
+    float l = luv[0];
+    float u = luv[1];
+    float v = luv[2];
     float h = atan2(u, v);
     float s = hypot(u, v);
     float res[3] = { h, s, l };
@@ -51,16 +62,22 @@ float[3] rgb2hsl(float r, float g, float b)
 }
 
 
-float[3] hsl2rgb(float hsl[3])
+float[3] luv2rgb(float l, float u, float v)
 {
-    float u = hsl[1] * sin(hsl[0]);
-    float v = hsl[1] * cos(hsl[0]);
-    float l = hsl[2];
     float b = l - u;
     float r = v + l;
     float g = (l - r * xyz_rec2020[1][0] - b * xyz_rec2020[1][2]) / xyz_rec2020[1][1];
     float res[3] = { r, g, b };
     return res;
+}    
+
+
+float[3] hsl2rgb(float hsl[3])
+{
+    float u = hsl[1] * sin(hsl[0]);
+    float v = hsl[1] * cos(hsl[0]);
+    float l = hsl[2];
+    return luv2rgb(l, u, v);
 }
 
 
