@@ -182,3 +182,9 @@ float[3][3] matrix_from_primaries(float r_xy[3], float g_xy[3], float b_xy[3],
     float ret[3][3] = mult_f33_f33(kr_m, m);
     return ret;
 }
+
+
+float intp(float blend, float a, float b)
+{
+    return blend * a + (1 - blend) * b;
+}
