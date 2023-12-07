@@ -10,11 +10,15 @@ float[3] process(float r, float g, float b, int sat, int density)
 {
     float hsl[3] = rgb2hsl(r, g, b);
     float c = fmax(hsl[1], 0);
+    hsl[2] = fmax(hsl[2], 0);
     float e = 1.0 + sat / 100.0;
     float s = intp(sqrt(fmin(c, 1)), c, c * e);
-    float f = ite(c > 0 && s > c, sqrt(s / c), 1);
+    float f = 1;
+    if (c > 0 && s > c) {
+        f = sqrt(s / c);
+    }
     hsl[1] = s;
-    hsl[2] = intp(density / 100.0, pow(hsl[2], f), hsl[2]);
+    hsl[2] = intp(density / 100.0, pow(hsl[2], f), hsl[2]); 
     float rgb[3] = hsl2rgb(hsl);
     return rgb;
 }
