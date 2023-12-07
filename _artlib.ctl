@@ -188,3 +188,19 @@ float intp(float blend, float a, float b)
 {
     return blend * a + (1 - blend) * b;
 }
+
+
+float ite(bool cond, float t, float e)
+{
+    if (cond) {
+        return t;
+    } else {
+        return e;
+    }
+}
+
+
+float sqr(float x)
+{
+    return x*x;
+}
