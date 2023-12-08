@@ -30,7 +30,25 @@ const float xyz_rec709[3][3] = {
     {0.0139322,  0.0971045,  0.7141733}
 };
 
+const float xyz_p3[3][3] = {
+    {0.4451, 0.2771, 0.1723},
+    {0.2095, 0.7216, 0.06891},
+    {0.0, 0.047, 0.9073}
+};
+
+const float xyz_adobe[3][3] = {
+    {0.6097559, 0.2052401, 0.1492240},
+    {0.3111242, 0.6256560, 0.0632197},
+    {0.0194811, 0.0608902, 0.7448387}
+};
+
 const float xyz_rec2020_t[3][3] = transpose_f33(xyz_rec2020);
+
+const float identity_33[3][3] = {
+    {1, 0, 0},
+    {0, 1, 0},
+    {0, 0, 1}
+};
 
 
 float luminance(float r, float g, float b)
@@ -203,4 +221,56 @@ float ite(bool cond, float t, float e)
 float sqr(float x)
 {
     return x*x;
+}
+
+
+// ACES-style gamut compression
+//
+// tweaked from the original from https://github.com/jedypod/gamut-compress
+float[3] gamut_compress(float rgb_in[3], float threshold[3],
+                        float distance_limit[3],
+                        float to_out[3][3], float from_out[3][3])
+{
+    float rgb[3] = rgb_in;
+    
+    // Calculate scale so compression function passes through distance limit:
+    // (x=distance_limit, y=1)
+    float s[3];
+    for (int i = 0; i < 3; i = i+1) {
+        s[i] = (1.0  - threshold[i])/sqrt(fmax(1.001, distance_limit[0])-1.0);
+    }
+
+    // convert to target colorspace
+    rgb = mult_f3_f33(rgb, to_out);
+  
+    // Achromatic axis
+    float ac = fmax(rgb[0], fmax(rgb[1], rgb[2]));
+
+    // Inverse RGB Ratios: distance from achromatic axis
+    float d[3] = {0, 0, 0};
+    if (ac != 0) {
+        for (int i = 0; i < 3; i = i+1) {
+            d[i] = (ac - rgb[i]) / fabs(ac);
+        }
+    }
+
+    float cd[3] = { d[0], d[1], d[2] }; // Compressed distance
+    // Parabolic compression function:
+    // https://www.desmos.com/calculator/nvhp63hmtj
+    for (int i = 0; i < 3; i = i+1) {
+        if (d[i] >= threshold[i]) {
+            cd[i] = s[i] * sqrt(d[i] - threshold[i] + s[i]*s[i]/4.0) -
+                s[i] * sqrt(s[i] * s[i] / 4.0) + threshold[i];
+        }
+    }
+
+    // Inverse RGB Ratios to RGB
+    for (int i = 0; i < 3; i = i+1) {
+        rgb[i] = ac - cd[i] * fabs(ac);
+    }
+
+    // back to working colorspace
+    rgb = mult_f3_f33(rgb, from_out);
+
+    return rgb;
 }
