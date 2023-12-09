@@ -4,7 +4,7 @@
 // license: Creative Commons Attribution-ShareAlike 4.0 International License.
 
 // @ART-colorspace: "rec2020"
-// @ART-label: "Subtractive Color Mixing"
+// @ART-label: "Subtractive color mixing"
 // @ART-lut: 32
 
 import "_artlib";

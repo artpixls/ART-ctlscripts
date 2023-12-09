@@ -1,6 +1,6 @@
 // simple "film" density filter for ART
 
-// @ART-label: "Film Density"
+// @ART-label: "Film density"
 // @ART-colorspace: "rec2020"
 
 import "_artlib";

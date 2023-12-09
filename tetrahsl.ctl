@@ -1,5 +1,5 @@
 // @ART-colorspace: "rec2020"
-// @ART-label: "Tetrahedral Color Warping (HSL)"
+// @ART-label: "Tetrahedral color warping (HSL)"
 
 import "_artlib";
 import "_tetrainterp";

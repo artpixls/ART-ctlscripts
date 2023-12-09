@@ -1,5 +1,5 @@
 // @ART-colorspace: "rec2020"
-// @ART-label: "Tetrahedral Color Warping (RGB)"
+// @ART-label: "Tetrahedral color warping (RGB)"
 
 import "_tetrainterp";
 
