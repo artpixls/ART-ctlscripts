@@ -1,12 +1,38 @@
-// tone mapping taken from
+// customized tone mapping with bits taken from
 //  https://github.com/thatcherfreeman/utility-dctls/
 //
+// Copyright of the original code
+/*
+MIT License
+
+Copyright (c) 2023 Thatcher Freeman
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+// 
 // @ART-colorspace: "rec2020"
-// @ART-label: "Output Display Transform"
+// @ART-label: "Output display transform"
 // 
 
 // @ART-param: ["evgain", "Gain (Ev)", 0.0, 4.0, 0.0, 0.01]
-// @ART-param: ["target_slope", "Contrast", 0.2, 2.0, 1.0, 0.01]
+// @ART-param: ["contrast", "Contrast", -100, 100, 0]
 // @ART-param: ["white_point", "White Point", 0.8, 40.0, 1.0, 0.1]
 // @ART-param: ["scale_mid_gray", "Scale Mid Gray with White Point", false]
 // @ART-param: ["gc_colorspace", "Target Space", ["None", "Rec.2020", "Rec.709 / sRGB", "DCI-P3", "Adobe RGB"], 2, "Gamut Compression"]
@@ -32,9 +58,17 @@ float powf(float base, float exp)
 }
 
 
-float contrast(float x, float mid_gray, float gamma)
+float scene_contrast(float x, float mid_gray, float gamma)
 {
     return mid_gray * powf(x / mid_gray, gamma);
+}
+
+
+float display_contrast(float x, float a, float b, float w, float o)
+{
+    float y = pow(fmax(x - o, 0) / w, a);
+    float r = log(y * (b - 1) + 1) / log(b);
+    return r * w + o;
 }
 
 
@@ -75,7 +109,7 @@ float[3] transform(float p_R, float p_G, float p_B,
 
     // h(x) = g(m_i * ((x/m_i)**gamma))
     for (int i = 0; i < 3; i = i+1) {
-        out[i] = rolloff_function(contrast(out[i], mid_gray_out, gamma),
+        out[i] = rolloff_function(scene_contrast(out[i], mid_gray_out, gamma),
                                   a, b, c);
     }
     return out;
@@ -88,7 +122,7 @@ const float base_th[3] = {0.85, 0.75, 0.95};
 
 const float mid_gray_in = 0.18;
 const float usr_mid_gray_out = 0.18;
-const float black_point = 0.0;
+const float black_point = 1.0/4096.0;
 
 
 void ART_main(varying float r, varying float g, varying float b,
@@ -96,7 +130,7 @@ void ART_main(varying float r, varying float g, varying float b,
               output varying float gout,
               output varying float bout,
               float evgain,
-              float target_slope, float white_point,
+              int contrast, float white_point,
               bool scale_mid_gray, int gc_colorspace, float gc_strength)
 {
     float gain = pow(2, evgain);
@@ -125,10 +159,21 @@ void ART_main(varying float r, varying float g, varying float b,
 
         rgb = gamut_compress(rgb, th, dl, to_out, from_out);
     }
-    
+
+    const float target_slope = 1.0;
     float res[3] = transform(rgb[0], rgb[1], rgb[2],
                              target_slope, white_point, black_point,
                              mid_gray_in, usr_mid_gray_out, scale_mid_gray);
+
+    if (contrast != 0) {
+        const float pivot = 0.18 / white_point;
+        const float c = pow(fabs(contrast / 100.0), 1.5) * 16.0;
+        const float b = ite(contrast > 0, 1 + c, 1.0 / (1 + c));
+        const float a = log((exp(log(b) * pivot) - 1) / (b - 1)) / log(pivot);
+        for (int i = 0; i < 3; i = i+1) {
+            res[i] = display_contrast(res[i], a, b, white_point, black_point);
+        }
+    }
 
     float rhue = rgb2hsl(1, 0, 0)[0];
     float bhue = rgb2hsl(0, 0, 1)[0];
