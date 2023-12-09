@@ -23,7 +23,7 @@ void ART_main(varying float r, varying float g, varying float b,
     float tomix[3] = { mr / 255.0, mg / 255.0, mb / 255.0 };
     for (int i = 0; i < 3; i = i+1) {
         rgb[i] = fmax(rgb[i], 0);
-        tomix[i] = pow(tomix[i], 1.0/2.2);
+        tomix[i] = pow(tomix[i], 2.4);
     }
     tomix = mult_f3_f33(tomix, to_rec2020);
 
