@@ -28,15 +28,16 @@ SOFTWARE.
 
 // 
 // @ART-colorspace: "rec2020"
-// @ART-label: "Output display transform"
+// @ART-label: "ART output transform"
 // 
 
 // @ART-param: ["evgain", "Gain (Ev)", 0.0, 4.0, 0.0, 0.01]
 // @ART-param: ["contrast", "Contrast", -100, 100, 0]
-// @ART-param: ["white_point", "White Point", 0.8, 40.0, 1.0, 0.1]
-// @ART-param: ["scale_mid_gray", "Scale Mid Gray with White Point", false]
-// @ART-param: ["gc_colorspace", "Target Space", ["None", "Rec.2020", "Rec.709 / sRGB", "DCI-P3", "Adobe RGB"], 2, "Gamut Compression"]
-// @ART-param: ["gc_strength", "Strength", 0.7, 2, 1, 0.01, "Gamut Compression"]
+// @ART-param: ["white_point", "White point", 0.8, 40.0, 1.0, 0.1]
+// @ART-param: ["scale_mid_gray", "Scale mid gray with white point", false]
+// @ART-param: ["gc_colorspace", "Target space", ["None", "Rec.2020", "Rec.709 / sRGB", "DCI-P3", "Adobe RGB"], 2, "Gamut compression"]
+// @ART-param: ["gc_strength", "Strength", 0.7, 2, 1, 0.01, "Gamut compression"]
+// @ART-param: ["hue_preservation", "Hue preservation", 0, 1, 0, 0.1]
 
 import "_artlib";
 
@@ -79,19 +80,10 @@ float rolloff_function(float x, float a, float b, float c)
 }
 
 
-float[3] transform(float p_R, float p_G, float p_B,
-                   float target_slope, float white_point, float black_point,
-                   float mid_gray_in, float usr_mid_gray_out,
-                   bool scale_mid_gray)
+float[3] tonemap(float p_R, float p_G, float p_B,
+                 float target_slope, float white_point, float black_point,
+                 float mid_gray_in, float mid_gray_out)
 {
-    float mid_gray_out;
-    if (scale_mid_gray) {
-        const float dr = white_point - black_point;
-        mid_gray_out = usr_mid_gray_out * dr + black_point;
-    } else {
-        mid_gray_out = usr_mid_gray_out;
-    }
-
     float out[3] = { p_R, p_G, p_B };
     for (int i = 0; i < 3; i = i+1) {
         out[i] = out[i] * mid_gray_out / mid_gray_in;
@@ -116,6 +108,31 @@ float[3] transform(float p_R, float p_G, float p_B,
 }
 
 
+const float rhue = rgb2hsl(1, 0, 0)[0];
+const float bhue = rgb2hsl(0, 0, 1)[0];
+const float yhue = rgb2hsl(1, 1, 0)[0];
+const float ohue = rgb2hsl(1, 0.5, 0)[0];
+const float yrange = fabs(ohue - yhue) * 0.8;
+const float rrange = fabs(ohue - rhue);
+const float brange = rrange;
+
+float[3] creative_hue_shift(float amount, float in_r, float in_g, float in_b,
+                            float white_point, float rgb[3])
+{
+    float hue = rgb2hsl(in_r, in_g, in_b)[0];
+    const float base_shift = 15.0 * amount;
+    float hue_shift = base_shift * M_PI / 180.0 * gauss(rhue, rrange, hue);
+    hue_shift = hue_shift + -base_shift * M_PI / 180.0 * gauss(bhue, brange, hue);
+    hue_shift = hue_shift * clamp((rgb[0] + rgb[1] + rgb[2]) / (3.0 * white_point), 0, 1);
+    hue = hue + hue_shift;
+    
+    float hsl[3] = rgb2hsl(rgb[0], rgb[1], rgb[2]);
+    hsl[0] = hue;
+    float res[3] = hsl2rgb(hsl);
+    return res;
+}
+
+
 // hand-tuned gamut compression parameters
 const float base_dl[3] = {1.1, 1.2, 1.5};
 const float base_th[3] = {0.85, 0.75, 0.95};
@@ -131,7 +148,8 @@ void ART_main(varying float r, varying float g, varying float b,
               output varying float bout,
               float evgain,
               int contrast, float white_point,
-              bool scale_mid_gray, int gc_colorspace, float gc_strength)
+              bool scale_mid_gray, int gc_colorspace, float gc_strength,
+              float hue_preservation)
 {
     float gain = pow(2, evgain);
     float rgb[3] = { r * gain, g * gain, b * gain };
@@ -160,13 +178,21 @@ void ART_main(varying float r, varying float g, varying float b,
         rgb = gamut_compress(rgb, th, dl, to_out, from_out);
     }
 
+    float mid_gray_out;
+    if (scale_mid_gray) {
+        const float dr = white_point - black_point;
+        mid_gray_out = usr_mid_gray_out * dr + black_point;
+    } else {
+        mid_gray_out = usr_mid_gray_out;
+    }
+    
     const float target_slope = 1.0;
-    float res[3] = transform(rgb[0], rgb[1], rgb[2],
-                             target_slope, white_point, black_point,
-                             mid_gray_in, usr_mid_gray_out, scale_mid_gray);
+    float res[3] = tonemap(rgb[0], rgb[1], rgb[2],
+                           target_slope, white_point, black_point,
+                           mid_gray_in, mid_gray_out);
 
     if (contrast != 0) {
-        const float pivot = 0.18 / white_point;
+        const float pivot = mid_gray_out / white_point;
         const float c = pow(fabs(contrast / 100.0), 1.5) * 16.0;
         const float b = ite(contrast > 0, 1 + c, 1.0 / (1 + c));
         const float a = log((exp(log(b) * pivot) - 1) / (b - 1)) / log(pivot);
@@ -175,23 +201,7 @@ void ART_main(varying float r, varying float g, varying float b,
         }
     }
 
-    float rhue = rgb2hsl(1, 0, 0)[0];
-    float bhue = rgb2hsl(0, 0, 1)[0];
-    float yhue = rgb2hsl(1, 1, 0)[0];
-    float ohue = rgb2hsl(1, 0.5, 0)[0];
-    float yrange = fabs(ohue - yhue) * 0.8;
-    float rrange = fabs(ohue - rhue);
-    float brange = rrange;
-
-    float hue = rgb2hsl(r, g, b)[0];
-    float hue_shift = 15.0 * M_PI / 180.0 * gauss(rhue, rrange, hue);
-    hue_shift = hue_shift + -5.0 * M_PI / 180.0 * gauss(bhue, brange, hue);
-    hue_shift = hue_shift * clamp((res[0] + res[1] + res[2]) / (3.0 * white_point), 0, 1);
-    hue = hue + hue_shift;
-    
-    float hsl[3] = rgb2hsl(res[0], res[1], res[2]);
-    hsl[0] = hue;
-    res = hsl2rgb(hsl);
+    res = creative_hue_shift(1.0 - hue_preservation, r, g, b, white_point, res);
 
     rout = clamp(res[0], 0, white_point);
     gout = clamp(res[1], 0, white_point);
