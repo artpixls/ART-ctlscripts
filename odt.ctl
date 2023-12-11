@@ -116,11 +116,12 @@ const float yrange = fabs(ohue - yhue) * 0.8;
 const float rrange = fabs(ohue - rhue);
 const float brange = rrange;
 
-float[3] creative_hue_shift(float amount, float in_r, float in_g, float in_b,
-                            float white_point, float rgb[3])
+float[3] creative_hue_sat_tweaks(float hue_shift_amount, float sat_factor,
+                                 float in_r, float in_g, float in_b,
+                                 float white_point, float rgb[3])
 {
     float hue = rgb2hsl(in_r, in_g, in_b)[0];
-    const float base_shift = 15.0 * amount;
+    const float base_shift = 15.0 * hue_shift_amount;
     float hue_shift = base_shift * M_PI / 180.0 * gauss(rhue, rrange, hue);
     hue_shift = hue_shift + -base_shift * M_PI / 180.0 * gauss(bhue, brange, hue);
     hue_shift = hue_shift * clamp((rgb[0] + rgb[1] + rgb[2]) / (3.0 * white_point), 0, 1);
@@ -128,6 +129,7 @@ float[3] creative_hue_shift(float amount, float in_r, float in_g, float in_b,
     
     float hsl[3] = rgb2hsl(rgb[0], rgb[1], rgb[2]);
     hsl[0] = hue;
+    hsl[1] = hsl[1] * sat_factor;
     float res[3] = hsl2rgb(hsl);
     return res;
 }
@@ -191,6 +193,7 @@ void ART_main(varying float r, varying float g, varying float b,
                            target_slope, white_point, black_point,
                            mid_gray_in, mid_gray_out);
 
+    float sat_factor = 1.0;
     if (contrast != 0) {
         const float pivot = mid_gray_out / white_point;
         const float c = pow(fabs(contrast / 100.0), 1.5) * 16.0;
@@ -199,9 +202,11 @@ void ART_main(varying float r, varying float g, varying float b,
         for (int i = 0; i < 3; i = i+1) {
             res[i] = display_contrast(res[i], a, b, white_point, black_point);
         }
+        sat_factor = 1 - contrast / 750.0;
     }
 
-    res = creative_hue_shift(1.0 - hue_preservation, r, g, b, white_point, res);
+    res = creative_hue_sat_tweaks(1.0 - hue_preservation, sat_factor, r, g, b,
+                                  white_point, res);
 
     rout = clamp(res[0], 0, white_point);
     gout = clamp(res[1], 0, white_point);
