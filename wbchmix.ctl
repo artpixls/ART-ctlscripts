@@ -104,19 +104,35 @@ float[3] tweak_xy(float xy[3], float hue, float sat, float hrange, float srange)
 }
 
 
-float[3][3] get_matrix(float rhue, float rsat, float ghue, float gsat,
-                       float bhue, float bsat, float temp, float tint)
+const float rec2020_xyz_t[3][3] = transpose_f33(invert_f33(xyz_rec2020));
+
+float[3][3] get_wb_matrix(float temp, float tint)
 {
     float temp_k = 5000;
     if (temp > 0) {
-        temp_k = temp_k + 50 * temp;
+        temp_k = temp_k - 20 * temp;
     } else {
-        temp_k = temp_k + 20 * temp;
+        temp_k = temp_k - 50 * temp;
     }
-    const float white[3] = temp_tint_to_xy(temp_k, tint / 1000);
+    const float white[3] = temp_tint_to_xy(temp_k, -tint / 1000);
+    float xw = white[0] / white[1];
+    float zw = white[2] / white[1];
+    float mul[3] = mult_f3_f33(mkfloat3(xw, 1, zw), rec2020_xyz_t);
+    float m = luminance(mul[0], mul[1], mul[2]);
+    const float wb[3][3] = {
+        {mul[0] / m, 0, 0},
+        {0, mul[1] / m, 0},
+        {0, 0, mul[2] / m}
+    };
+    return wb;
+}
 
+
+float[3][3] get_primaries_matrix(float rhue, float rsat, float ghue, float gsat,
+                                 float bhue, float bsat)
+{
     const float M[3][3] =
-        matrix_from_primaries(red_xy, green_xy, blue_xy, white);
+        matrix_from_primaries(red_xy, green_xy, blue_xy, D50_xy);
     const float N[3][3] = matrix_from_primaries(
         tweak_xy(red_xy, rhue / 100, rsat / 100, 0.47, 0.3),
         tweak_xy(green_xy, ghue / 100, gsat / 100, 0.63, 0.5),
@@ -124,6 +140,15 @@ float[3][3] get_matrix(float rhue, float rsat, float ghue, float gsat,
         D50_xy);
     const float res[3][3] = mult_f33_f33(invert_f33(M), N);
     return res;
+}
+
+
+float[3][3] get_matrix(float rhue, float rsat, float ghue, float gsat,
+                       float bhue, float bsat, float temp, float tint)
+{
+    return mult_f33_f33(get_wb_matrix(temp, tint),
+                        get_primaries_matrix(rhue, rsat, ghue, gsat,
+                                             bhue, bsat));
 }
 
 
