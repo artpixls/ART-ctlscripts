@@ -105,10 +105,16 @@ float[3] tweak_xy(float xy[3], float hue, float sat, float hrange, float srange)
 
 
 const float rec2020_xyz_t[3][3] = transpose_f33(invert_f33(xyz_rec2020));
+const float white_temp_k = 5000;
+const float ref_white_xy[3] = temp_to_xy(white_temp_k);
+const float ref_mul[3] = mult_f3_f33(
+    mkfloat3(ref_white_xy[0] / ref_white_xy[1], 1,
+             ref_white_xy[2] / ref_white_xy[1]),
+    rec2020_xyz_t);
 
 float[3][3] get_wb_matrix(float temp, float tint)
 {
-    float temp_k = 5000;
+    float temp_k = white_temp_k;
     if (temp > 0) {
         temp_k = temp_k - 20 * temp;
     } else {
@@ -118,6 +124,9 @@ float[3][3] get_wb_matrix(float temp, float tint)
     float xw = white[0] / white[1];
     float zw = white[2] / white[1];
     float mul[3] = mult_f3_f33(mkfloat3(xw, 1, zw), rec2020_xyz_t);
+    for (int i = 0; i < 3; i = i+1) {
+        mul[i] = mul[i] / ref_mul[i];
+    }
     float m = luminance(mul[0], mul[1], mul[2]);
     const float wb[3][3] = {
         {mul[0] / m, 0, 0},
