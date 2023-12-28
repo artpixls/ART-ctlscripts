@@ -154,7 +154,7 @@ float log2(float x)
 {
     float y = x;
     if (y < 0) {
-        y = 0;
+        y = 1e-20;
     }
     return log(y) / log2_val;
 }
