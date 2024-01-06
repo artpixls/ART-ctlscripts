@@ -8,10 +8,6 @@
 
 import "_artlib";
 
-/* const float log_lb = -22.5; */
-/* const float log_ub = 12.5; */
-/* const float log_range = log_ub - log_lb; */
-
 const float m = 0.18;
 const float b = (1.0 / m) * (1.0 - m) * m;
 const float g = pow((m + b), 2.0) / b;
