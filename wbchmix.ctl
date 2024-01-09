@@ -163,11 +163,11 @@ float[3][3] get_matrix(float rhue, float rsat, float ghue, float gsat,
 
 // @ART-param: ["temp", "$TP_WBALANCE_TEMPERATURE", -100, 100, 0, 0.1, "$TP_WBALANCE_LABEL"]
 // @ART-param: ["tint", "$TP_WBALANCE_GREEN", -100, 100, 0, 0.1, "$TP_WBALANCE_LABEL"]
-// @ART-param: ["rhue", "$TP_CHMIXER_HUE", -100, 100, 0, 1, "$TP_CHMIXER_PRIMARY_R"]
+// @ART-param: ["rhue", "$TP_CHMIXER_HUE", -250, 250, 0, 1, "$TP_CHMIXER_PRIMARY_R"]
 // @ART-param: ["rsat", "$TP_CHMIXER_SAT", -100, 100, 0, 1, "$TP_CHMIXER_PRIMARY_R"]
-// @ART-param: ["ghue", "$TP_CHMIXER_HUE", -100, 100, 0, 1, "$TP_CHMIXER_PRIMARY_G"]
+// @ART-param: ["ghue", "$TP_CHMIXER_HUE", -250, 250, 0, 1, "$TP_CHMIXER_PRIMARY_G"]
 // @ART-param: ["gsat", "$TP_CHMIXER_SAT", -100, 100, 0, 1, "$TP_CHMIXER_PRIMARY_G"]
-// @ART-param: ["bhue", "$TP_CHMIXER_HUE", -100, 100, 0, 1, "$TP_CHMIXER_PRIMARY_B"]
+// @ART-param: ["bhue", "$TP_CHMIXER_HUE", -250, 250, 0, 1, "$TP_CHMIXER_PRIMARY_B"]
 // @ART-param: ["bsat", "$TP_CHMIXER_SAT", -100, 100, 0, 1, "$TP_CHMIXER_PRIMARY_B"]
 
 void ART_main(varying float r, varying float g, varying float b,
