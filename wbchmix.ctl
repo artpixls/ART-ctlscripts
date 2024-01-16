@@ -169,6 +169,8 @@ float[3][3] get_matrix(float rhue, float rsat, float ghue, float gsat,
 // @ART-param: ["gsat", "$TP_CHMIXER_SAT", -100, 100, 0, 1, "$TP_CHMIXER_PRIMARY_G"]
 // @ART-param: ["bhue", "$TP_CHMIXER_HUE", -250, 250, 0, 1, "$TP_CHMIXER_PRIMARY_B"]
 // @ART-param: ["bsat", "$TP_CHMIXER_SAT", -100, 100, 0, 1, "$TP_CHMIXER_PRIMARY_B"]
+// @ART-param: ["blkhue", "Hue", 0, 360, 0, 1, "Shadows tint"]
+// @ART-param: ["blksat", "Saturation", 0.0, 1.0, 0.0, 0.01, "Shadows tint"]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,
@@ -177,12 +179,18 @@ void ART_main(varying float r, varying float g, varying float b,
               float temp, float tint,
               float rhue, float rsat,
               float ghue, float gsat,
-              float bhue, float bsat)
+              float bhue, float bsat,
+              float blkhue, float blksat)
 {
-    float M[3][3] = get_matrix(rhue, rsat, ghue, gsat, bhue, bsat, temp, tint);
+    const float M[3][3] =
+        get_matrix(rhue, rsat, ghue, gsat, bhue, bsat, temp, tint);
+    const float blkhsl[3] = { blkhue / 180.0 * M_PI, blksat * 0.02, 0 };
+    const float blk[3] = hsl2rgb(blkhsl);
+    
     float rgb[3] = { r, g, b };
     rgb = mult_f3_f33(rgb, M);
-    rout = rgb[0];
-    gout = rgb[1];
-    bout = rgb[2];
+
+    rout = rgb[0] + blk[0];
+    gout = rgb[1] + blk[1];
+    bout = rgb[2] + blk[2];
 }
