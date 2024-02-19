@@ -149,8 +149,9 @@ float GHT(float x, float B, float D, float LP, float SP, float HP, ght_compute_p
 {
     const float BP = 0.0;
     float out;
-    float in = x;
-    in = fmax(0.0, (in - BP)/(1.0 - BP));
+    /* float in = x; */
+    /* in = fmax(0.0, (in - BP)/(1.0 - BP)); */
+    float in = clip(x, 0, 1);
     if (D == 0.0) {
         out = in;
     } else {
