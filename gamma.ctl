@@ -1,11 +1,12 @@
 // @ART-label: "Gamma/slope"
+// @ART-colorspace: "rec2020"
 
 import "_artlib";
 
 
 // @ART-param: ["direction", "Direction", ["Forward", "Reverse"], 0]
-// @ART-param: ["gamma", "Exponent", 1.0, 5.0, 1, 0.01]
-// @ART-param: ["k", "Offset", 0.0, 0.5, 0, 0.0001]
+// @ART-param: ["gamma", "Exponent", 1.0, 10.0, 1, 0.01]
+// @ART-param: ["k", "Offset", 0.0, 1.5, 0, 0.0001]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,
@@ -14,6 +15,7 @@ void ART_main(varying float r, varying float g, varying float b,
               float gamma, float k, int direction)
 {
     float rgb[3] = { fmax(r, 0), fmax(g, 0), fmax(b, 0) };
+    float hsl[3] = rgb2hsl(r, g, b);
     const float g1 = 1 / gamma;
     if (k > 0) {
         const float xbreak = k / (gamma - 1);
@@ -46,6 +48,12 @@ void ART_main(varying float r, varying float g, varying float b,
             rgb[i] = pow(rgb[i], gamma);
         }
     }
+
+    float hue = hsl[0];
+    hsl = rgb2hsl(rgb[0], rgb[1], rgb[2]);
+    hsl[0] = hue;
+    rgb = hsl2rgb(hsl);
+    
     rout = rgb[0];
     gout = rgb[1];
     bout = rgb[2];
