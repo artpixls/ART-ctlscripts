@@ -31,8 +31,8 @@ SOFTWARE.
 // @ART-label: "ART output transform"
 // 
 
-// @ART-param: ["evgain", "Gain (Ev)", 0.0, 4.0, 0.0, 0.01]
-// @ART-param: ["contrast", "Contrast", -100, 100, 0]
+// @ART-param: ["evgain", "Gain (Ev)", 0.0, 4.0, 0.5, 0.01]
+// @ART-param: ["contrast", "Contrast", -100, 100, 25]
 // @ART-param: ["white_point", "White point", 0.8, 40.0, 1.0, 0.1]
 // @ART-param: ["scale_mid_gray", "Scale mid gray with white point", false]
 // @ART-param: ["gc_colorspace", "Target space", ["None", "Rec.2020", "Rec.709 / sRGB", "DCI-P3", "Adobe RGB"], 2, "Gamut compression"]
