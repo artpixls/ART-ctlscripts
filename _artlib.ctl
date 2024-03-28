@@ -42,6 +42,12 @@ const float xyz_adobe[3][3] = {
     {0.0194811, 0.0608902, 0.7448387}
 };
 
+const float xyz_ap1[3][3] = {
+    {0.689697, 0.149944, 0.124559},
+    {0.284448, 0.671758  , 0.043794},
+    {-0.006043, 0.009998, 0.820945}
+};
+
 const float xyz_rec2020_t[3][3] = transpose_f33(xyz_rec2020);
 
 const float identity_33[3][3] = {
@@ -229,7 +235,8 @@ float sqr(float x)
 // tweaked from the original from https://github.com/jedypod/gamut-compress
 float[3] gamut_compress(float rgb_in[3], float threshold[3],
                         float distance_limit[3],
-                        float to_out[3][3], float from_out[3][3])
+                        float to_out[3][3], float from_out[3][3],
+                        float pwr=0.0)
 {
     float rgb[3] = rgb_in;
     
@@ -237,7 +244,7 @@ float[3] gamut_compress(float rgb_in[3], float threshold[3],
     // (x=distance_limit, y=1)
     float s[3];
     for (int i = 0; i < 3; i = i+1) {
-        s[i] = (1.0  - threshold[i])/sqrt(fmax(1.001, distance_limit[0])-1.0);
+        s[i] = (1.0  - threshold[i])/sqrt(fmax(1.001, distance_limit[i])-1.0);
     }
 
     // convert to target colorspace
@@ -255,12 +262,28 @@ float[3] gamut_compress(float rgb_in[3], float threshold[3],
     }
 
     float cd[3] = { d[0], d[1], d[2] }; // Compressed distance
-    // Parabolic compression function:
-    // https://www.desmos.com/calculator/nvhp63hmtj
-    for (int i = 0; i < 3; i = i+1) {
-        if (d[i] >= threshold[i]) {
-            cd[i] = s[i] * sqrt(d[i] - threshold[i] + s[i]*s[i]/4.0) -
-                s[i] * sqrt(s[i] * s[i] / 4.0) + threshold[i];
+
+    if (pwr == 0.0) {
+        // Parabolic compression function:
+        // https://www.desmos.com/calculator/nvhp63hmtj
+        for (int i = 0; i < 3; i = i+1) {
+            if (d[i] >= threshold[i]) {
+                cd[i] = s[i] * sqrt(d[i] - threshold[i] + s[i]*s[i]/4.0) -
+                    s[i] * sqrt(s[i] * s[i] / 4.0) + threshold[i];
+            }
+        }
+    } else {
+        for (int i = 0; i < 3; i = i+1) {
+            if (d[i] < threshold[i]) {
+                cd[i] = d[i];
+            } else {
+                float lim = distance_limit[i];
+                float thr = threshold[i];
+                float scl = (lim - thr) / pow(pow((1.0 - thr) / (lim - thr), -pwr) - 1.0, 1.0 / pwr);
+                float nd = (d[i] - thr) / scl;
+                float p = pow(nd, pwr);
+                cd[i] = thr + scl * nd / (pow(1.0 + p, 1.0 / pwr));
+            }
         }
     }
 
