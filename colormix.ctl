@@ -10,7 +10,7 @@ const float to_rec2020[3][3] =
 // @ART-param: ["mg", "Green", 0, 255, 0, "Color to mix"]
 // @ART-param: ["mb", "Blue", 0, 255, 0, "Color to mix"]
 // @ART-param: ["amount", "Amount", 0, 1, 0, 0.001]
-// @ART-param: ["mode", "Blend mode", ["Normal", "Add", "Multiply", "Hue", "Color"], 0]
+// @ART-param: ["mode", "Blend mode", ["Normal", "Add", "Subtract", "Multiply", "Hue", "Color"], 0]
 // @ART-param: ["norm", "Preserve luminance", false]
 
 void ART_main(varying float r, varying float g, varying float b,
@@ -34,7 +34,11 @@ void ART_main(varying float r, varying float g, varying float b,
         for (int i = 0; i < 3; i = i+1) {
             res[i] = rgb[i] + tomix[i];
         }
-    } else if (mode == 2) { // multiply
+    } else if (mode == 2) { // subtract
+        for (int i = 0; i < 3; i = i+1) {
+            res[i] = rgb[i] - tomix[i];
+        }
+    } else if (mode == 3) { // multiply
         for (int i = 0; i < 3; i = i+1) {
             res[i] = rgb[i] * tomix[i];
         }
@@ -42,7 +46,7 @@ void ART_main(varying float r, varying float g, varying float b,
         res = rgb2hsl(tomix[0], tomix[1], tomix[2]);
         float hsl[3] = rgb2hsl(rgb[0], rgb[1], rgb[2]);
         res[2] = hsl[2];
-        if (mode == 3) { // hue
+        if (mode == 4) { // hue
             res[1] = hsl[1];
         }
         res = hsl2rgb(res);
