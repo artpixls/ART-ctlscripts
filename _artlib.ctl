@@ -297,3 +297,35 @@ float[3] gamut_compress(float rgb_in[3], float threshold[3],
 
     return rgb;
 }
+
+
+const float pq_m1 = 2610.0 / 16384.0;
+const float pq_m2 = 2523.0 / 32.0;
+const float pq_c1 = 107.0 / 128.0;
+const float pq_c2 = 2413.0 / 128.0;
+const float pq_c3 = 2392.0 / 128.0;
+
+float pq_curve(float x, bool inv)
+{
+    if (!inv) {
+        float y = fmax(x / 100.0, 0.0);
+        float a = pow(y, pq_m1);
+        return pow((pq_c1 + pq_c2 * a) / (1.0 + pq_c3 * a), pq_m2);
+    } else {
+        float p = pow(x, 1.0/pq_m2);
+        float v = fmax(p - pq_c1, 0.0) / (pq_c2 - pq_c3 * p);
+        return pow(v, 1.0 / pq_m1) * 100.0;
+    }
+}
+
+
+float lin2log(float x, float base)
+{
+    return log(x * (base - 1) + 1) / log(base); 
+}
+
+
+float log2lin(float x, float base)
+{
+    return (pow(base, x) - 1) / (base - 1);
+}
