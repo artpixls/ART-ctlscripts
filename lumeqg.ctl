@@ -1,4 +1,4 @@
-// @ART-label: "Graphical luminance equalizer"
+// @ART-label: "Graphical equalizer by luminance"
 // @ART-colorspace: "rec2020"
 
 import "_artlib";

@@ -1,4 +1,4 @@
-// @ART-label: "Graphical hue equalizer"
+// @ART-label: "Graphical equalizer by hue"
 // @ART-colorspace: "rec2020"
 
 import "_artlib";
