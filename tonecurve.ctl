@@ -5,10 +5,10 @@ import "_artlib";
 
 const float c = 0;
 const float a = 1;
-const float b = (a / (0.18 - c)) * (1.0 - ((0.18 - c) / a)) * 0.18;
+const float m = 0.5;//0.18;
+const float b = (a / (m - c)) * (1.0 - ((m - c) / a)) * m;
 const float s = 1;
-const float g = s * pow(0.18 + b, 2) / (a * b);
-const float l = 50.0;
+const float g = s * pow(m + b, 2) / (a * b);
 
 float ro(float x)
 {
@@ -22,41 +22,41 @@ float iro(float y)
 
 float contr(float x)
 {
-    return 0.18 * pow(x / 0.18, g);
+    return m * pow(x / m, g);
 }
 
 float icontr(float y)
 {
-    return pow(y / 0.18, 1.0/g) * 0.18;
+    return pow(y / m, 1.0/g) * m;
 }
 
-float lg(float x)
+float gam(float x)
 {
-    return log(x * (l - 1.0) + 1.0) / log(l);
+    return pow(x, 1.0/2.2);
 }
 
 
-float ilg(float x)
+float igam(float x)
 {
-    return (pow(l, x) - 1) / (l - 1.0);
+    return pow(x, 2.2);
 }
 
 
 float enc(float x)
 {
-    float y = ite(x <= 0.18, x, ro(contr(x)));
-    return lg(y);
+    float y = ite(x <= m, x, ro(contr(x)));
+    return gam(y);
 }
 
 
 float dec(float x)
 {
-    float y = ilg(x);
-    return ite(y <= 0.18, y, icontr(iro(y)));
+    float y = igam(x);
+    return ite(y <= m, y, icontr(iro(y)));
 }
 
 
-// @ART-param: ["curve", "Curve"]
+// @ART-param: ["curve", "Curve", 0, ["CatmullRom", 0, 0, 1, 1]]
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,
               output varying float gout,
