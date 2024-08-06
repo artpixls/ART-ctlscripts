@@ -329,3 +329,9 @@ float log2lin(float x, float base)
 {
     return (pow(base, x) - 1) / (base - 1);
 }
+
+
+float luteval(float lut[], float x, float vmin=0, float vmax=1)
+{
+    return lookupCubic1D(lut, vmin, vmax, x);
+}

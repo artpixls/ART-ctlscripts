@@ -20,14 +20,14 @@ void ART_main(varying float r, varying float g, varying float b,
 {
     float hsl[3] = rgb2hsl(r, g, b);
     float y = pow(clamp(hsl[2], 0, 1), 1.0/2.2);
-    float v = lookupCubic1D(hcurve, 0, 1, y);
+    float v = luteval(hcurve, y);
     float f = tolin(v, 50) * M_PI;
     hsl[0] = hsl[0] + f;
-    v = lookupCubic1D(scurve, 0, 1, y);
+    v = luteval(scurve, y);
     f = tolin(v, 2);
     float s = fmax(1.0 + f, 0);
     hsl[1] = hsl[1] * s;
-    v = lookupCubic1D(lcurve, 0, 1, y) - 0.5;
+    v = luteval(lcurve, y) - 0.5;
     f = 1 + sgn(v) * pow(v, 2) * 5;
     hsl[2] = hsl[2] * f;
     float rgb[3] = hsl2rgb(hsl);

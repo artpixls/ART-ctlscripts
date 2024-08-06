@@ -66,7 +66,7 @@ void ART_main(varying float r, varying float g, varying float b,
     float rgb[3] = { r, g, b };
     for (int i = 0; i < 3; i = i+1) {
         float x = enc(rgb[i]);
-        float y = lookupCubic1D(curve, 0, 1, x);
+        float y = luteval(curve, x);
         rgb[i] = dec(y);
     }
     rout = rgb[0];
