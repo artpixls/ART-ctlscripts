@@ -1,5 +1,5 @@
-// @ART-label: "Exposure compensation"
-// @ART-param: ["ev", "Exposure compensation (Ev)", -10, 10, 0, 0.01]
+// @ART-label: "$CTL_EXPOSURE_COMPENSATION;Exposure compensation"
+// @ART-param: ["ev", "$CTL_EXPOSURE_COMPENSATION_EV;Exposure compensation (Ev)", -10, 10, 0, 0.01]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,

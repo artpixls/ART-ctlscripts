@@ -1,4 +1,4 @@
-// @ART-label: "Posterization"
+// @ART-label: "$CTL_POSTERIZATION;Posterization"
 // @ART-colorspace: "rec709"
 
 import "_artlib";
@@ -13,7 +13,7 @@ float lim(float a, float f)
 }
 
 
-// @ART-param: ["bits", "Bits per channel", 1, 16, 8]
+// @ART-param: ["bits", "$CTL_BITS_PER_CHANNEL;Bits per channel", 1, 16, 8]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,

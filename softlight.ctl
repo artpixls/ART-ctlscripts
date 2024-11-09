@@ -1,10 +1,10 @@
 // 
 // @ART-colorspace: "rec2020"
-// @ART-label: "Softlight"
+// @ART-label: "$CTL_SOFTLIGHT;Softlight"
 // 
 
-// @ART-param: ["strength", "Strength", 0.0, 100.0, 0.0, 0.1]
-// @ART-param: ["pivot", "Shadows/Highlights balance", -1, 1, 0, 0.01]
+// @ART-param: ["strength", "$CTL_STRENGTH;Strength", 0.0, 100.0, 0.0, 0.1]
+// @ART-param: ["pivot", "$CTL_SHADOWS_HIGHLIGHTS_BALANCE;Shadows/Highlights balance", -1, 1, 0, 0.01]
 
 import "_artlib";
 

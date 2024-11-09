@@ -1,14 +1,14 @@
-// @ART-label: "Channel mixer"
+// @ART-label: "$CTL_CHANNEL_MIXER;Channel mixer"
 
-// @ART-param: ["rr", "Red", -2.5, 2.5, 1, 0.01, "Red"]
-// @ART-param: ["rg", "Green", -2.5, 2.5, 0, 0.01, "Red"]
-// @ART-param: ["rb", "Blue", -2.5, 2.5, 0, 0.01, "Red"]
-// @ART-param: ["gr", "Red", -2.5, 2.5, 0, 0.01, "Green"]
-// @ART-param: ["gg", "Green", -2.5, 2.5, 1, 0.01, "Green"]
-// @ART-param: ["gb", "Blue", -2.5, 2.5, 0, 0.01, "Green"]
-// @ART-param: ["br", "Red", -2.5, 2.5, 0, 0.01, "Blue"]
-// @ART-param: ["bg", "Green", -2.5, 2.5, 0, 0.01, "Blue"]
-// @ART-param: ["bb", "Blue", -2.5, 2.5, 1, 0.01, "Blue"]
+// @ART-param: ["rr", "$CTL_RED;Red", -2.5, 2.5, 1, 0.01, "$CTL_RED;Red"]
+// @ART-param: ["rg", "$CTL_GREEN;Green", -2.5, 2.5, 0, 0.01, "$CTL_RED;Red"]
+// @ART-param: ["rb", "$CTL_BLUE;Blue", -2.5, 2.5, 0, 0.01, "$CTL_RED;Red"]
+// @ART-param: ["gr", "$CTL_RED;Red", -2.5, 2.5, 0, 0.01, "$CTL_GREEN;Green"]
+// @ART-param: ["gg", "$CTL_GREEN;Green", -2.5, 2.5, 1, 0.01, "$CTL_GREEN;Green"]
+// @ART-param: ["gb", "$CTL_BLUE;Blue", -2.5, 2.5, 0, 0.01, "$CTL_GREEN;Green"]
+// @ART-param: ["br", "$CTL_RED;Red", -2.5, 2.5, 0, 0.01, "$CTL_BLUE;Blue"]
+// @ART-param: ["bg", "$CTL_GREEN;Green", -2.5, 2.5, 0, 0.01, "$CTL_BLUE;Blue"]
+// @ART-param: ["bb", "$CTL_BLUE;Blue", -2.5, 2.5, 1, 0.01, "$CTL_BLUE;Blue"]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,

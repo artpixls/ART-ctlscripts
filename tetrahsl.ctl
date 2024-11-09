@@ -1,5 +1,5 @@
 // @ART-colorspace: "rec2020"
-// @ART-label: "Tetrahedral color warping (HSL)"
+// @ART-label: "$CTL_TETRAHEDRAL_COLOR_WARPING_HSL;Tetrahedral color warping (HSL)"
 
 import "_artlib";
 import "_tetrainterp";
@@ -49,36 +49,36 @@ void hs2uv(float h, float s, output float u, output float v)
     v = f * cos(a);
 }
 
-// @ART-param: ["RED_H", "Hue", -1.0, 1.0, 0.0, 0.001, "Red"]
-// @ART-param: ["RED_S", "Saturation", -1.0, 1.0, 0.0, 0.001, "Red"]
-// @ART-param: ["RED_L", "Lightness", -1.0, 1.0, 0.0, 0.001, "Red"]
+// @ART-param: ["RED_H", "$CTL_HUE;Hue", -1.0, 1.0, 0.0, 0.001, "$CTL_RED;Red"]
+// @ART-param: ["RED_S", "$CTL_SATURATION;Saturation", -1.0, 1.0, 0.0, 0.001, "$CTL_RED;Red"]
+// @ART-param: ["RED_L", "$CTL_LIGHTNESS;Lightness", -1.0, 1.0, 0.0, 0.001, "$CTL_RED;Red"]
 
-// @ART-param: ["GRN_H", "Hue", -1.0, 1.0, 0.0, 0.001, "Green"]
-// @ART-param: ["GRN_S", "Saturation", -1.0, 1.0, 0.0, 0.001, "Green"]
-// @ART-param: ["GRN_L", "Lightness", -1.0, 1.0, 0.0, 0.001, "Green"]
+// @ART-param: ["GRN_H", "$CTL_HUE;Hue", -1.0, 1.0, 0.0, 0.001, "$CTL_GREEN;Green"]
+// @ART-param: ["GRN_S", "$CTL_SATURATION;Saturation", -1.0, 1.0, 0.0, 0.001, "$CTL_GREEN;Green"]
+// @ART-param: ["GRN_L", "$CTL_LIGHTNESS;Lightness", -1.0, 1.0, 0.0, 0.001, "$CTL_GREEN;Green"]
 
-// @ART-param: ["BLU_H", "Hue", -1.0, 1.0, 0.0, 0.001, "Blue"]
-// @ART-param: ["BLU_S", "Saturation", -1.0, 1.0, 0.0, 0.001, "Blue"]
-// @ART-param: ["BLU_L", "Lightness", -1.0, 1.0, 0.0, 0.001, "Blue"]
+// @ART-param: ["BLU_H", "$CTL_HUE;Hue", -1.0, 1.0, 0.0, 0.001, "$CTL_BLUE;Blue"]
+// @ART-param: ["BLU_S", "$CTL_SATURATION;Saturation", -1.0, 1.0, 0.0, 0.001, "$CTL_BLUE;Blue"]
+// @ART-param: ["BLU_L", "$CTL_LIGHTNESS;Lightness", -1.0, 1.0, 0.0, 0.001, "$CTL_BLUE;Blue"]
 
-// @ART-param: ["CYN_H", "Hue", -1.0, 1.0, 0.0, 0.001, "Cyan"]
-// @ART-param: ["CYN_S", "Saturation", -1.0, 1.0, 0.0, 0.001, "Cyan"]
-// @ART-param: ["CYN_L", "Lightness", -1.0, 1.0, 0.0, 0.001, "Cyan"]
+// @ART-param: ["CYN_H", "$CTL_HUE;Hue", -1.0, 1.0, 0.0, 0.001, "$CTL_CYAN;Cyan"]
+// @ART-param: ["CYN_S", "$CTL_SATURATION;Saturation", -1.0, 1.0, 0.0, 0.001, "$CTL_CYAN;Cyan"]
+// @ART-param: ["CYN_L", "$CTL_LIGHTNESS;Lightness", -1.0, 1.0, 0.0, 0.001, "$CTL_CYAN;Cyan"]
 
-// @ART-param: ["MAG_H", "Hue", -1.0, 1.0, 0.0, 0.001, "Magenta"]
-// @ART-param: ["MAG_S", "Saturation", -1.0, 1.0, 0.0, 0.001, "Magenta"]
-// @ART-param: ["MAG_L", "Lightness", -1.0, 1.0, 0.0, 0.001, "Magenta"]
+// @ART-param: ["MAG_H", "$CTL_HUE;Hue", -1.0, 1.0, 0.0, 0.001, "$CTL_MAGENTA;Magenta"]
+// @ART-param: ["MAG_S", "$CTL_SATURATION;Saturation", -1.0, 1.0, 0.0, 0.001, "$CTL_MAGENTA;Magenta"]
+// @ART-param: ["MAG_L", "$CTL_LIGHTNESS;Lightness", -1.0, 1.0, 0.0, 0.001, "$CTL_MAGENTA;Magenta"]
 
-// @ART-param: ["YEL_H", "Hue", -1.0, 1.0, 0.0, 0.001, "Yellow"]
-// @ART-param: ["YEL_S", "Saturation", -1.0, 1.0, 0.0, 0.001, "Yellow"]
-// @ART-param: ["YEL_L", "Lightness", -1.0, 1.0, 0.0, 0.001, "Yellow"]
+// @ART-param: ["YEL_H", "$CTL_HUE;Hue", -1.0, 1.0, 0.0, 0.001, "$CTL_YELLOW;Yellow"]
+// @ART-param: ["YEL_S", "$CTL_SATURATION;Saturation", -1.0, 1.0, 0.0, 0.001, "$CTL_YELLOW;Yellow"]
+// @ART-param: ["YEL_L", "$CTL_LIGHTNESS;Lightness", -1.0, 1.0, 0.0, 0.001, "$CTL_YELLOW;Yellow"]
 
-// @ART-param: ["BLK_H", "Hue", 0, 360.0, 0.0, 0.1, "Black"]
-// @ART-param: ["BLK_S", "Saturation", 0.0, 1.0, 0.0, 0.01, "Black"]
-// @ART-param: ["BLK_O", "Offset/Lift", -1.0, 1.0, 0.0, 0.001, "Black"]
+// @ART-param: ["BLK_H", "$CTL_HUE;Hue", 0, 360.0, 0.0, 0.1, "$CTL_BLACK;Black"]
+// @ART-param: ["BLK_S", "$CTL_SATURATION;Saturation", 0.0, 1.0, 0.0, 0.01, "$CTL_BLACK;Black"]
+// @ART-param: ["BLK_O", "$CTL_OFFSET_LIFT;Offset/Lift", -1.0, 1.0, 0.0, 0.001, "$CTL_BLACK;Black"]
 
-// @ART-param: ["WHT_H", "Hue", 0, 360.0, 0.0, 0.1, "White"]
-// @ART-param: ["WHT_S", "Saturation", 0.0, 1.0, 0.0, 0.01, "White"]
+// @ART-param: ["WHT_H", "$CTL_HUE;Hue", 0, 360.0, 0.0, 0.1, "$CTL_WHITE;White"]
+// @ART-param: ["WHT_S", "$CTL_SATURATION;Saturation", 0.0, 1.0, 0.0, 0.01, "$CTL_WHITE;White"]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,

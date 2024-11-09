@@ -1,7 +1,7 @@
 // ACES-style gamut compression
 //
 // @ART-colorspace: "rec2020"
-// @ART-label: "Gamut compression"
+// @ART-label: "$CTL_GAMUT_COMPRESSION;Gamut compression"
 
 import "_artlib";
 
@@ -17,14 +17,14 @@ const float to_ap1[3][3] = transpose_f33(mult_f33_f33(invert_f33(xyz_ap1),
                                                       xyz_rec2020));
 const float from_ap1[3][3] = invert_f33(to_ap1);
 
-// @ART-param: ["colorspace", "Target gamut", ["Rec.2020", "Rec.709 / sRGB", "DCI-P3", "ACES AP1"], 3]
-// @ART-param: ["th_c", "Cyan", 0.0, 1, 0.815, 0.001, "Threshold"]
-// @ART-param: ["th_m", "Magenta", 0.0, 1, 0.803, 0.001, "Threshold"]
-// @ART-param: ["th_y", "Yellow", 0.0, 1, 0.880, 0.001, "Threshold"]
-// @ART-param: ["d_c", "Cyan", 1.001, 2, 1.147, 0.001, "Limit"]
-// @ART-param: ["d_m", "Magenta", 1.001, 2, 1.264, 0.001, "Limit"]
-// @ART-param: ["d_y", "Yellow", 1.001, 2, 1.312, 0.001, "Limit"]
-// @ART-param: ["pwr", "Roll-off", 0.5, 2.0, 1.2, 0.01]
+// @ART-param: ["colorspace", "$CTL_TARGET_GAMUT;Target gamut", ["Rec.2020", "Rec.709 / sRGB", "DCI-P3", "ACES AP1"], 3]
+// @ART-param: ["th_c", "$CTL_CYAN;Cyan", 0.0, 1, 0.815, 0.001, "$CTL_THRESHOLD;Threshold"]
+// @ART-param: ["th_m", "$CTL_MAGENTA;Magenta", 0.0, 1, 0.803, 0.001, "$CTL_THRESHOLD;Threshold"]
+// @ART-param: ["th_y", "$CTL_YELLOW;Yellow", 0.0, 1, 0.880, 0.001, "$CTL_THRESHOLD;Threshold"]
+// @ART-param: ["d_c", "$CTL_CYAN;Cyan", 1.001, 2, 1.147, 0.001, "$CTL_LIMIT;Limit"]
+// @ART-param: ["d_m", "$CTL_MAGENTA;Magenta", 1.001, 2, 1.264, 0.001, "$CTL_LIMIT;Limit"]
+// @ART-param: ["d_y", "$CTL_YELLOW;Yellow", 1.001, 2, 1.312, 0.001, "$CTL_LIMIT;Limit"]
+// @ART-param: ["pwr", "$CTL_ROLL_OFF;Roll-off", 0.5, 2.0, 1.2, 0.01]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,

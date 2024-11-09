@@ -17,7 +17,7 @@
  *  along with ART.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// @ART-label: "Equalizer by saturation"
+// @ART-label: "$CTL_EQUALIZER_BY_SATURATION;Equalizer by saturation"
 // @ART-colorspace: "rec2020"
 
 import "_artlib";
@@ -59,12 +59,12 @@ float get_factor(float s,
 
 const float noise = pow(2, -16);
 
-// @ART-param: ["mode", "Target", ["$TP_COLORCORRECTION_S", "$TP_COLORCORRECTION_L", "$TP_COLORCORRECTION_H"]]
-// @ART-param: ["gray", "Neutral", -100, 100, 0]
-// @ART-param: ["muted", "Muted", -100, 100, 0]
-// @ART-param: ["average", "Average", -100, 100, 0]
-// @ART-param: ["vivid", "Vivid", -100, 100, 0]
-// @ART-param: ["pure", "Pure", -100, 100, 0]
+// @ART-param: ["mode", "$CTL_TARGET;Target", ["$TP_COLORCORRECTION_S", "$TP_COLORCORRECTION_L", "$TP_COLORCORRECTION_H"]]
+// @ART-param: ["gray", "$CTL_NEUTRAL;Neutral", -100, 100, 0]
+// @ART-param: ["muted", "$CTL_MUTED;Muted", -100, 100, 0]
+// @ART-param: ["average", "$CTL_AVERAGE;Average", -100, 100, 0]
+// @ART-param: ["vivid", "$CTL_VIVID;Vivid", -100, 100, 0]
+// @ART-param: ["pure", "$CTL_PURE;Pure", -100, 100, 0]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,

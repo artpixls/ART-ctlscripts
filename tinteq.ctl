@@ -17,7 +17,7 @@
  *  along with ART.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// @ART-label: "Tint by luminance"
+// @ART-label: "$CTL_TINT_BY_LUMINANCE;Tint by luminance"
 // @ART-colorspace: "rec2020"
 
 import "_artlib";
@@ -90,16 +90,16 @@ void hs2uv(float h, float s, output float u, output float v)
 }
 
 
-// @ART-param: ["blacks_h", "Hue", 0, 360, 0, 0.1, "$TP_TONE_EQUALIZER_BAND_0"]
-// @ART-param: ["blacks_s", "Strength", 0, 1, 0, 0.01, "$TP_TONE_EQUALIZER_BAND_0"]
-// @ART-param: ["shadows_h", "Hue", 0, 360, 0, 0.1, "$TP_TONE_EQUALIZER_BAND_1"]
-// @ART-param: ["shadows_s", "Strength", 0, 1, 0, 0.01, "$TP_TONE_EQUALIZER_BAND_1"]
-// @ART-param: ["midtones_h", "Hue", 0, 360, 0, 0.1, "$TP_TONE_EQUALIZER_BAND_2"]
-// @ART-param: ["midtones_s", "Strength", 0, 1, 0, 0.01, "$TP_TONE_EQUALIZER_BAND_2"]
-// @ART-param: ["highlights_h", "Hue", 0, 360, 0, 0.1, "$TP_TONE_EQUALIZER_BAND_3"]
-// @ART-param: ["highlights_s", "Strength", 0, 1, 0, 0.01, "$TP_TONE_EQUALIZER_BAND_3"]
-// @ART-param: ["whites_h", "Hue", 0, 360, 0, 0.1, "$TP_TONE_EQUALIZER_BAND_4"]
-// @ART-param: ["whites_s", "Strength", 0, 1, 0, 0.01, "$TP_TONE_EQUALIZER_BAND_4"]
+// @ART-param: ["blacks_h", "$CTL_HUE;Hue", 0, 360, 0, 0.1, "$TP_TONE_EQUALIZER_BAND_0"]
+// @ART-param: ["blacks_s", "$CTL_STRENGTH;Strength", 0, 1, 0, 0.01, "$TP_TONE_EQUALIZER_BAND_0"]
+// @ART-param: ["shadows_h", "$CTL_HUE;Hue", 0, 360, 0, 0.1, "$TP_TONE_EQUALIZER_BAND_1"]
+// @ART-param: ["shadows_s", "$CTL_STRENGTH;Strength", 0, 1, 0, 0.01, "$TP_TONE_EQUALIZER_BAND_1"]
+// @ART-param: ["midtones_h", "$CTL_HUE;Hue", 0, 360, 0, 0.1, "$TP_TONE_EQUALIZER_BAND_2"]
+// @ART-param: ["midtones_s", "$CTL_STRENGTH;Strength", 0, 1, 0, 0.01, "$TP_TONE_EQUALIZER_BAND_2"]
+// @ART-param: ["highlights_h", "$CTL_HUE;Hue", 0, 360, 0, 0.1, "$TP_TONE_EQUALIZER_BAND_3"]
+// @ART-param: ["highlights_s", "$CTL_STRENGTH;Strength", 0, 1, 0, 0.01, "$TP_TONE_EQUALIZER_BAND_3"]
+// @ART-param: ["whites_h", "$CTL_HUE;Hue", 0, 360, 0, 0.1, "$TP_TONE_EQUALIZER_BAND_4"]
+// @ART-param: ["whites_s", "$CTL_STRENGTH;Strength", 0, 1, 0, 0.01, "$TP_TONE_EQUALIZER_BAND_4"]
 // @ART-param: ["pivot", "$TP_TONE_EQUALIZER_PIVOT", -4, 4, 0, 0.05]
 
 void ART_main(varying float r, varying float g, varying float b,

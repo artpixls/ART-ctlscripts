@@ -1,8 +1,8 @@
-// @ART-label: "B&W mixer"
+// @ART-label: "$CTL_B&W_MIXER;B&W mixer"
 
-// @ART-param: ["rr", "Red", -2.5, 2.5, 0.33, 0.01]
-// @ART-param: ["gg", "Green", -2.5, 2.5, 0.33, 0.01]
-// @ART-param: ["bb", "Blue", -2.5, 2.5, 0.33, 0.01]
+// @ART-param: ["rr", "$CTL_RED;Red", -2.5, 2.5, 0.33, 0.01]
+// @ART-param: ["gg", "$CTL_GREEN;Green", -2.5, 2.5, 0.33, 0.01]
+// @ART-param: ["bb", "$CTL_BLUE;Blue", -2.5, 2.5, 0.33, 0.01]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,

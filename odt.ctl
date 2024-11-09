@@ -28,16 +28,16 @@ SOFTWARE.
 
 // 
 // @ART-colorspace: "rec2020"
-// @ART-label: "ART output transform"
+// @ART-label: "$CTL_ART_OUTPUT_TRANSFORM;ART output transform"
 // 
 
-// @ART-param: ["evgain", "Gain (Ev)", 0.0, 4.0, 0.5, 0.01]
-// @ART-param: ["contrast", "Contrast", -100, 100, 25]
-// @ART-param: ["white_point", "White point", 0.8, 40.0, 1.0, 0.1]
-// @ART-param: ["scale_mid_gray", "Scale mid gray with white point", false]
-// @ART-param: ["gc_colorspace", "Target space", ["None", "Rec.2020", "Rec.709 / sRGB", "DCI-P3", "Adobe RGB"], 2, "Gamut compression"]
-// @ART-param: ["gc_strength", "Strength", 0.7, 2, 1, 0.01, "Gamut compression"]
-// @ART-param: ["hue_preservation", "Hue preservation", 0, 1, 0, 0.1]
+// @ART-param: ["evgain", "$CTL_GAIN;Gain (Ev)", 0.0, 4.0, 0.5, 0.01]
+// @ART-param: ["contrast", "$CTL_CONTRAST;Contrast", -100, 100, 25]
+// @ART-param: ["white_point", "$CTL_WHITE_POINT;White point", 0.8, 40.0, 1.0, 0.1]
+// @ART-param: ["scale_mid_gray", "$CTL_SCALE_MID_GRAY_WITH_WP;Scale mid gray with white point", false]
+// @ART-param: ["gc_colorspace", "$CTL_TARGET_SPACE;Target space", ["$CTL_NONE;None", "Rec.2020", "Rec.709 / sRGB", "DCI-P3", "Adobe RGB"], 2, "$CTL_GAMUT_COMPRESSION;Gamut compression"]
+// @ART-param: ["gc_strength", "$CTL_STRENGTH;Strength", 0.7, 2, 1, 0.01, "$CTL_GAMUT_COMPRESSION;Gamut compression"]
+// @ART-param: ["hue_preservation", "$CTL_HUE_PRESERVATION;Hue preservation", 0, 1, 0, 0.1]
 
 import "_artlib";
 

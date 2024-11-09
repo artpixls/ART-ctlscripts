@@ -1,4 +1,4 @@
-// @ART-label: "Tone curve"
+// @ART-label: "$CTL_TONE_CURVE;Tone curve"
 // @ART-colorspace: "rec2020"
 
 import "_artlib";
@@ -56,7 +56,7 @@ float dec(float x)
 }
 
 
-// @ART-param: ["curve", "Curve", 0, ["CatmullRom", 0, 0, 1, 1]]
+// @ART-param: ["curve", "$CTL_CURVE;Curve", 0, ["CatmullRom", 0, 0, 1, 1]]
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,
               output varying float gout,

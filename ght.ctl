@@ -25,14 +25,14 @@
 import "_artlib";
 
 // @ART-colorspace: "rec2020"
-// @ART-label: "Generalised hyperbolic stretch"
+// @ART-label: "$CTL_GENERALISED_HYPERBOLIC_STRETCH;Generalised hyperbolic stretch"
 
-// @ART-param: ["mode", "Mode", ["RGB", "Luminance", "Saturation"], 0]
-// @ART-param: ["D", "Stretch factor (D)", 0, 10, 0, 0.001]
-// @ART-param: ["B", "Local stretch intensity (b)", -5, 15, 0, 0.001]
-// @ART-param: ["SP", "Symmetry point (SP)", 0, 1, 0, 0.00001]
-// @ART-param: ["LP", "Shadow protection point (LP)", 0, 1, 0, 0.00001]
-// @ART-param: ["HP", "Highlight protection point (HP)", 0, 1, 1, 0.00001]
+// @ART-param: ["mode", "$CTL_MODE;Mode", ["RGB", "$CTL_LUMINANCE;Luminance", "$CTL_SATURATION;Saturation"], 0]
+// @ART-param: ["D", "$CTL_STRETCH_FACTOR;Stretch factor (D)", 0, 10, 0, 0.001]
+// @ART-param: ["B", "$CTL_LOCAL_STRETCH_INTENSITY;Local stretch intensity (b)", -5, 15, 0, 0.001]
+// @ART-param: ["SP", "$CTL_SYMMETRY_POINT;Symmetry point (SP)", 0, 1, 0, 0.00001]
+// @ART-param: ["LP", "$CTL_SHADOW_PROTECTION_POINT;Shadow protection point (LP)", 0, 1, 0, 0.00001]
+// @ART-param: ["HP", "$CTL_HIGHLIGHT_PROTECTION_POINT;Highlight protection point (HP)", 0, 1, 1, 0.00001]
 
 struct ght_compute_params {
     float qlp;

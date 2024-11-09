@@ -1,5 +1,5 @@
 // @ART-colorspace: "rec2020"
-// @ART-label: "Shadow lifting"
+// @ART-label: "$CTL_SHADOW_LIFTING;Shadow lifting"
 
 import "_artlib";
 
@@ -11,7 +11,7 @@ float boost(float x, float base, float logb)
 }
 
 
-// @ART-param: ["strength", "Strength", -100, 100, 0]
+// @ART-param: ["strength", "$CTL_STRENGTH;Strength", -100, 100, 0]
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,
               output varying float gout,

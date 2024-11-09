@@ -1,12 +1,12 @@
-// @ART-label: "Gamma/slope"
+// @ART-label: "$CTL_GAMMA_SLOPE;Gamma/slope"
 // @ART-colorspace: "rec2020"
 
 import "_artlib";
 
 
-// @ART-param: ["direction", "Direction", ["Forward", "Reverse"], 0]
-// @ART-param: ["gamma", "Exponent", 1.0, 10.0, 1, 0.01]
-// @ART-param: ["k", "Offset", 0.0, 1.5, 0, 0.0001]
+// @ART-param: ["direction", "$CTL_DIRECTION;Direction", ["$CTL_FORWARD;Forward", "$CTL_REVERSE;Reverse"], 0]
+// @ART-param: ["gamma", "$CTL_EXPONENT;Exponent", 1.0, 10.0, 1, 0.01]
+// @ART-param: ["k", "$CTL_OFFSET;Offset", 0.0, 1.5, 0, 0.0001]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,

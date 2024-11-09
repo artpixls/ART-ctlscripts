@@ -17,7 +17,7 @@
  *  along with ART.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// @ART-label: "WB and primaries correction"
+// @ART-label: "$CTL_WB_AND_PRIMARIES_CORRECTION;WB and primaries correction"
 // @ART-colorspace: "rec2020"
 
 import "_artlib";
@@ -169,8 +169,8 @@ float[3][3] get_matrix(float rhue, float rsat, float ghue, float gsat,
 // @ART-param: ["gsat", "$TP_CHMIXER_SAT", -100, 100, 0, 1, "$TP_CHMIXER_PRIMARY_G"]
 // @ART-param: ["bhue", "$TP_CHMIXER_HUE", -250, 250, 0, 1, "$TP_CHMIXER_PRIMARY_B"]
 // @ART-param: ["bsat", "$TP_CHMIXER_SAT", -100, 100, 0, 1, "$TP_CHMIXER_PRIMARY_B"]
-// @ART-param: ["blkhue", "Hue", 0, 360, 0, 1, "Shadows tint"]
-// @ART-param: ["blksat", "Saturation", 0.0, 1.0, 0.0, 0.01, "Shadows tint"]
+// @ART-param: ["blkhue", "$CTL_HUE;Hue", 0, 360, 0, 1, "$CTL_SHADOWS_TINT;Shadows tint"]
+// @ART-param: ["blksat", "$CTL_SATURATION;Saturation", 0.0, 1.0, 0.0, 0.01, "$CTL_SHADOWS_TINT;Shadows tint"]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,

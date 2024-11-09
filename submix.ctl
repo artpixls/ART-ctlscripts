@@ -4,7 +4,7 @@
 // license: Creative Commons Attribution-ShareAlike 4.0 International License.
 
 // @ART-colorspace: "rec2020"
-// @ART-label: "Subtractive color mixing"
+// @ART-label: "$CTL_SUBTRACTIVE_COLOR_MIXING;Subtractive color mixing"
 // @ART-lut: 32
 
 import "_artlib";
@@ -133,11 +133,11 @@ const float to_srgb[3][3] = transpose_f33(mult_f33_f33(sRGBd65_xyz,
                                                        xyz_rec2020));
 const float to_rec2020[3][3] = invert_f33(to_srgb);
 
-// @ART-param: ["mr", "Red", 0, 255, 0, "Color to mix"]
-// @ART-param: ["mg", "Green", 0, 255, 0, "Color to mix"]
-// @ART-param: ["mb", "Blue", 0, 255, 0, "Color to mix"]
-// @ART-param: ["amount", "Amount", 0, 1, 0, 0.001]
-// @ART-param: ["norm", "Preserve luminance", false]
+// @ART-param: ["mr", "$CTL_RED;Red", 0, 255, 0, "$CTL_COLOR_TO_MIX;Color to mix"]
+// @ART-param: ["mg", "$CTL_GREEN;Green", 0, 255, 0, "$CTL_COLOR_TO_MIX;Color to mix"]
+// @ART-param: ["mb", "$CTL_BLUE;Blue", 0, 255, 0, "$CTL_COLOR_TO_MIX;Color to mix"]
+// @ART-param: ["amount", "$CTL_AMOUNT;Amount", 0, 1, 0, 0.001]
+// @ART-param: ["norm", "$CTL_PRESERVE_LUMINANCE;Preserve luminance", false]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,

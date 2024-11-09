@@ -1,39 +1,39 @@
 // @ART-colorspace: "rec2020"
-// @ART-label: "Tetrahedral color warping (RGB)"
+// @ART-label: "$CTL_TETRAHEDRAL_COLOR_WARPING_RGB;Tetrahedral color warping (RGB)"
 
 import "_tetrainterp";
 
-// @ART-param: ["RED_R", "Red", -1.0, 3.0, 1.0, 0.001, "Red"]
-// @ART-param: ["RED_G", "Green", -2.0, 2.0, 0.0, 0.001, "Red"]
-// @ART-param: ["RED_B", "Blue", -2.0, 2.0, 0.0, 0.001, "Red"]
+// @ART-param: ["RED_R", "$CTL_RED;Red", -1.0, 3.0, 1.0, 0.001, "$CTL_RED;Red"]
+// @ART-param: ["RED_G", "$CTL_GREEN;Green", -2.0, 2.0, 0.0, 0.001, "$CTL_RED;Red"]
+// @ART-param: ["RED_B", "$CTL_BLUE;Blue", -2.0, 2.0, 0.0, 0.001, "$CTL_RED;Red"]
 
-// @ART-param: ["GRN_R", "Red", -2.0, 2.0, 0.0, 0.001, "Green"]
-// @ART-param: ["GRN_G", "Green", -1.0, 3.0, 1.0, 0.001, "Green"]
-// @ART-param: ["GRN_B", "Blue", -2.0, 2.0, 0.0, 0.001, "Green"]
+// @ART-param: ["GRN_R", "$CTL_RED;Red", -2.0, 2.0, 0.0, 0.001, "$CTL_GREEN;Green"]
+// @ART-param: ["GRN_G", "$CTL_GREEN;Green", -1.0, 3.0, 1.0, 0.001, "$CTL_GREEN;Green"]
+// @ART-param: ["GRN_B", "$CTL_BLUE;Blue", -2.0, 2.0, 0.0, 0.001, "$CTL_GREEN;Green"]
 
-// @ART-param: ["BLU_R", "Red", -2.0, 2.0, 0.0, 0.001, "Blue"]
-// @ART-param: ["BLU_G", "Green", -2.0, 2.0, 0.0, 0.001, "Blue"]
-// @ART-param: ["BLU_B", "Blue", -1.0, 3.0, 1.0, 0.001, "Blue"]
+// @ART-param: ["BLU_R", "$CTL_RED;Red", -2.0, 2.0, 0.0, 0.001, "$CTL_BLUE;Blue"]
+// @ART-param: ["BLU_G", "$CTL_GREEN;Green", -2.0, 2.0, 0.0, 0.001, "$CTL_BLUE;Blue"]
+// @ART-param: ["BLU_B", "$CTL_BLUE;Blue", -1.0, 3.0, 1.0, 0.001, "$CTL_BLUE;Blue"]
 
-// @ART-param: ["CYN_R", "Red", -2.0, 2.0, 0.0, 0.001, "Cyan"]
-// @ART-param: ["CYN_G", "Green", -1.0, 3.0, 1.0, 0.001, "Cyan"]
-// @ART-param: ["CYN_B", "Blue", -1.0, 3.0, 1.0, 0.001, "Cyan"]
+// @ART-param: ["CYN_R", "$CTL_RED;Red", -2.0, 2.0, 0.0, 0.001, "$CTL_CYAN;Cyan"]
+// @ART-param: ["CYN_G", "$CTL_GREEN;Green", -1.0, 3.0, 1.0, 0.001, "$CTL_CYAN;Cyan"]
+// @ART-param: ["CYN_B", "$CTL_BLUE;Blue", -1.0, 3.0, 1.0, 0.001, "$CTL_CYAN;Cyan"]
 
-// @ART-param: ["MAG_R", "Red", -1.0, 3.0, 1.0, 0.001, "Magenta"]
-// @ART-param: ["MAG_G", "Green", -2.0, 2.0, 0.0, 0.001, "Magenta"]
-// @ART-param: ["MAG_B", "Blue", -1.0, 3.0, 1.0, 0.001, "Magenta"]
+// @ART-param: ["MAG_R", "$CTL_RED;Red", -1.0, 3.0, 1.0, 0.001, "$CTL_MAGENTA;Magenta"]
+// @ART-param: ["MAG_G", "$CTL_GREEN;Green", -2.0, 2.0, 0.0, 0.001, "$CTL_MAGENTA;Magenta"]
+// @ART-param: ["MAG_B", "$CTL_BLUE;Blue", -1.0, 3.0, 1.0, 0.001, "$CTL_MAGENTA;Magenta"]
 
-// @ART-param: ["YEL_R", "Red", -1.0, 3.0, 1.0, 0.001, "Yellow"]
-// @ART-param: ["YEL_G", "Green", -1.0, 3.0, 1.0, 0.001, "Yellow"]
-// @ART-param: ["YEL_B", "Blue", -2.0, 2.0, 0.0, 0.001, "Yellow"]
+// @ART-param: ["YEL_R", "$CTL_RED;Red", -1.0, 3.0, 1.0, 0.001, "$CTL_YELLOW;Yellow"]
+// @ART-param: ["YEL_G", "$CTL_GREEN;Green", -1.0, 3.0, 1.0, 0.001, "$CTL_YELLOW;Yellow"]
+// @ART-param: ["YEL_B", "$CTL_BLUE;Blue", -2.0, 2.0, 0.0, 0.001, "$CTL_YELLOW;Yellow"]
 
-// @ART-param: ["BLK_R", "Red", -0.1, 0.1, 0.0, 0.0001, "Black"]
-// @ART-param: ["BLK_G", "Green", -0.1, 0.1, 0.0, 0.0001, "Black"]
-// @ART-param: ["BLK_B", "Blue", -0.1, 0.1, 0.0, 0.0001, "Black"]
+// @ART-param: ["BLK_R", "$CTL_RED;Red", -0.1, 0.1, 0.0, 0.0001, "$CTL_BLACK;Black"]
+// @ART-param: ["BLK_G", "$CTL_GREEN;Green", -0.1, 0.1, 0.0, 0.0001, "$CTL_BLACK;Black"]
+// @ART-param: ["BLK_B", "$CTL_BLUE;Blue", -0.1, 0.1, 0.0, 0.0001, "$CTL_BLACK;Black"]
 
-// @ART-param: ["WHT_R", "Red", 0.5, 1.5, 1, 0.001, "White"]
-// @ART-param: ["WHT_G", "Green", 0.5, 1.5, 1, 0.001, "White"]
-// @ART-param: ["WHT_B", "Blue", 0.5, 1.5, 1, 0.001, "White"]
+// @ART-param: ["WHT_R", "$CTL_RED;Red", 0.5, 1.5, 1, 0.001, "$CTL_WHITE;White"]
+// @ART-param: ["WHT_G", "$CTL_GREEN;Green", 0.5, 1.5, 1, 0.001, "$CTL_WHITE;White"]
+// @ART-param: ["WHT_B", "$CTL_BLUE;Blue", 0.5, 1.5, 1, 0.001, "$CTL_WHITE;White"]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,

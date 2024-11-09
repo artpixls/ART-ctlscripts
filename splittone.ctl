@@ -1,26 +1,22 @@
 // @ART-colorspace: "rec2020"
-// @ART-label: "Split toning"
-
-import "_artlib";
+// @ART-label: "$CTL_SIMPLE_SPLIT_TONING;Simple split toning"
 
 float pow0(float x, float e) { if (x < 0) return x; else return pow(x, e); }
 
-// @ART-param: ["hhue", "Hue", 0, 360, 0, 0.1, "Highlights"]
-// @ART-param: ["hsat", "Strength", 0, 1, 0, 0.01, "Highlights"]
-// @ART-param: ["shue", "Hue", 0, 360, 0, 0.1, "Shadows"]
-// @ART-param: ["ssat", "Strength", 0, 1, 0, 0.01, "Shadows"]
-// @ART-param: ["balance", "Shadows/Highlights balance", -1, 1, 0, 0.01]
+// @ART-param: ["hhue", "$CTL_HUE;Hue", 0, 360, 0, 0.1, "$CTL_HIGHLIGHTS;Highlights"]
+// @ART-param: ["hsat", "$CTL_STRENGTH;Strength", 0, 1, 0, 0.01, "$CTL_HIGHLIGHTS;Highlights"]
+// @ART-param: ["shue", "$CTL_HUE;Hue", 0, 360, 0, 0.1, "$CTL_SHADOWS;Shadows"]
+// @ART-param: ["ssat", "$CTL_STRENGTH;Strength", 0, 1, 0, 0.01, "$CTL_SHADOWS;Shadows"]
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,
               output varying float gout,
               output varying float bout,
-              float hhue, float hsat, float shue, float ssat, float balance)
+              float hhue, float hsat, float shue, float ssat)
 {
     const float hue[2] = { hhue * M_PI / 180.0, shue * M_PI / 180.0 };
     const float sat[2] = { hsat, ssat / 5 };
 
-    const float gamma = ite(balance < 0, 1 + (1 + balance) * 1.2,
-                            2.2 + balance * 2.8);
+    const float gamma = 2.2;
     const float igamma = 1 / gamma;
     
     float rgb[3] = {

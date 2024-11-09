@@ -17,7 +17,7 @@
  *  along with ART.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// @ART-label: "Equalizer by hue"
+// @ART-label: "$CTL_EQUALIZER_BY_HUE;Equalizer by hue"
 // @ART-colorspace: "rec2020"
 
 import "_artlib";
@@ -62,13 +62,13 @@ float get_factor(float h, int red, int magenta, int blue,
 
 const float noise = pow(2, -16);
 
-// @ART-param: ["mode", "Target", ["$TP_COLORCORRECTION_H", "$TP_COLORCORRECTION_S", "$TP_COLORCORRECTION_L"]]
-// @ART-param: ["red", "Red", -100, 100, 0]
-// @ART-param: ["magenta", "Magenta", -100, 100, 0]
-// @ART-param: ["blue", "Blue", -100, 100, 0]
-// @ART-param: ["cyan", "Cyan", -100, 100, 0]
-// @ART-param: ["green", "Green", -100, 100, 0]
-// @ART-param: ["yellow", "Yellow", -100, 100, 0]
+// @ART-param: ["mode", "$CTL_TARGET;Target", ["$TP_COLORCORRECTION_H", "$TP_COLORCORRECTION_S", "$TP_COLORCORRECTION_L"]]
+// @ART-param: ["red", "$CTL_RED;Red", -100, 100, 0]
+// @ART-param: ["magenta", "$CTL_MAGENTA;Magenta", -100, 100, 0]
+// @ART-param: ["blue", "$CTL_BLUE;Blue", -100, 100, 0]
+// @ART-param: ["cyan", "$CTL_CYAN;Cyan", -100, 100, 0]
+// @ART-param: ["green", "$CTL_GREEN;Green", -100, 100, 0]
+// @ART-param: ["yellow", "$CTL_YELLOW;Yellow", -100, 100, 0]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,

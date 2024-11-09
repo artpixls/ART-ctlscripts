@@ -17,7 +17,7 @@
  *  along with ART.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// @ART-label: "Equalizer by luminance"
+// @ART-label: "$CTL_EQUALIZER_BY_LUMINANCE;Equalizer by luminance"
 // @ART-colorspace: "rec2020"
 
 import "_artlib";
@@ -131,7 +131,7 @@ float apply_vibrance(float x, float vib)
 }
 
 
-// @ART-param: ["mode", "Target", ["$TP_COLORCORRECTION_L", "$TP_COLORCORRECTION_S", "$TP_SATURATION_VIBRANCE"]]
+// @ART-param: ["mode", "$CTL_TARGET;Target", ["$TP_COLORCORRECTION_L", "$TP_COLORCORRECTION_S", "$TP_SATURATION_VIBRANCE"]]
 // @ART-param: ["blacks", "$TP_TONE_EQUALIZER_BAND_0", -100, 100, 0]
 // @ART-param: ["shadows", "$TP_TONE_EQUALIZER_BAND_1", -100, 100, 0]
 // @ART-param: ["midtones", "$TP_TONE_EQUALIZER_BAND_2", -100, 100, 0]

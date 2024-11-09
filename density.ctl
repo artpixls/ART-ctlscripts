@@ -1,6 +1,6 @@
 // simple "film" density filter for ART
 
-// @ART-label: "Film density"
+// @ART-label: "$CTL_FILM_DENSITY;Film density"
 // @ART-colorspace: "rec2020"
 
 import "_artlib";
@@ -23,8 +23,8 @@ float[3] process(float r, float g, float b, int sat, int density)
     return rgb;
 }
 
-// @ART-param: ["sat", "Saturation", 0, 100, 0]
-// @ART-param: ["density", "Density", 0, 100, 0]
+// @ART-param: ["sat", "$CTL_SATURATION;Saturation", 0, 100, 0]
+// @ART-param: ["density", "$CTL_DENSITY;Density", 0, 100, 0]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,
