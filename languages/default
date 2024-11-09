@@ -6,88 +6,98 @@
 #
 #2024-11-08 Bereczky Péter
 #
+CTL_ADD;Add
+CTL_AMOUNT;Amount
+CTL_ART_OUTPUT_TRANSFORM;ART output transform
+CTL_AVERAGE;Average
 CTL_B&W_MIXER;B&W mixer
-CTL_RED;Red
-CTL_GREEN;Green
+CTL_BITS_PER_CHANNEL;Bits per channel
+CTL_BLACK;Black
+CTL_BLEND_MODE;Blend mode
 CTL_BLUE;Blue
+CTL_CHANNEL;Channel
 CTL_CHANNEL_MIXER;Channel mixer
+CTL_COLOR;Color
+CTL_COLOR_BALANCE_RGB;Color balance RGB
 CTL_COLOR_MIXING;Color mixing
 CTL_COLOR_TO_MIX;Color to mix
-CTL_AMOUNT;Amount
-CTL_BLEND_MODE;Blend mode
-CTL_NORMAL;Normal
-CTL_ADD;Add
-CTL_SUBTRACT;Subtract
-CTL_MULTIPLY;Multiply
-CTL_HUE;Hue
-CTL_COLOR;Color
-CTL_PRESERVE_LUMINANCE;Preserve luminance
-CTL_FILM_DENSITY;Film density
-CTL_SATURATION;Saturation
+CTL_CONTRAST;Contrast
+CTL_CURVE;Curve
+CTL_CYAN;Cyan
 CTL_DENSITY;Density
+CTL_DIRECTION;Direction
+CTL_EQUALIZER_BY_HUE;Equalizer by hue
+CTL_EQUALIZER_BY_LUMINANCE;Equalizer by luminance
+CTL_EQUALIZER_BY_SATURATION;Equalizer by saturation
+CTL_EXPONENT;Exponent
 CTL_EXPOSURE_COMPENSATION;Exposure compensation
 CTL_EXPOSURE_COMPENSATION_EV;Exposure compensation (Ev)
-CTL_GAMMA_SLOPE;Gamma/Slope
-CTL_DIRECTION;Direction
+CTL_FILM_DENSITY;Film density
 CTL_FORWARD;Forward
-CTL_REVERSE;Reverse
-CTL_EXPONENT;Exponent
-CTL_OFFSET;Offset
-CTL_GAMUT_COMPRESSION;Gamut compression
-CTL_TARGET_GAMUT;Target gamut
-CTL_CYAN;Cyan
-CTL_MAGENTA;Magenta
-CTL_YELLOW;Yellow
-CTL_ROLL_OFF;Roll-off
-CTL_THRESHOLD;Threshold
-CTL_LIMIT;Limit
-CTL_GENERALISED_HYPERBOLIC_STRETCH;Generalised hyperbolic stretch
-CTL_MODE;Mode
-CTL_STRETCH_FACTOR;Stretch factor (D)
-CTL_LOCAL_STRETCH_INTENSITY;Local stretch intensity (b)
-CTL_SYMMETRY_POINT;Symmetry point (SP)
-CTL_SHADOW_PROTECTION_POINT;Shadow protection point (LP)
-CTL_HIGHLIGHT_PROTECTION_POINT;Highlight protection point (HP)
-CTL_LUMINANCE;Luminance
-CTL_EQUALIZER_BY_HUE;Equalizer by hue
-CTL_TARGET;Target
-CTL_EQUALIZER_BY_LUMINANCE;Equalizer by luminance
-CTL_ART_OUTPUT_TRANSFORM;ART output transform
 CTL_GAIN;Gain (Ev)
-CTL_CONTRAST;Contrast
-CTL_WHITE_POINT;White point
-CTL_SCALE_MID_GRAY_WITH_WP;Scale mid gray with white point
-CTL_TARGET_SPACE;Target space
-CTL_NONE;None
-CTL_STRENGTH;Strength
-CTL_HUE_PRESERVATION;Hue preservation
-CTL_POSTERIZATION;Posterization
-CTL_BITS_PER_CHANNEL;Bits per channel
-CTL_EQUALIZER_BY_SATURATION;Equalizer by saturation
-CTL_NEUTRAL;Neutral
-CTL_MUTED;Muted
-CTL_AVERAGE;Average
-CTL_VIVID;Vivid
-CTL_PURE;Pure
-CTL_SHADOW_LIFTING;Shadow lifting
-CTL_SOFTLIGHT;Softlight
-CTL_SHADOWS_HIGHLIGHTS_BALANCE;Shadows/Highlights balance
-CTL_SIMPLE_SPLIT_TONING;Simple split toning
-CTL_HIGHLIGHTS;Highlights
-CTL_SHADOWS;Shadows
-CTL_SUBTRACTIVE_COLOR_MIXING;Subtractive color mixing
-CTL_TETRAHEDRAL_COLOR_WARPING_HSL;Tetrahedral color warping (HSL)
-CTL_OFFSET_LIFT;Offset/Lift
-CTL_BLACK;Black
-CTL_LIGHTNESS;Lightness
-CTL_TETRAHEDRAL_COLOR_WARPING_RGB;Tetrahedral color warping (RGB)
-CTL_WHITE;White
-CTL_TINT_BY_LUMINANCE;Tint by luminance
-CTL_WB_AND_PRIMARIES_CORRECTION;WB and primaries correction
-CTL_SHADOWS_TINT;Shadows tint
-CTL_CHANNEL;Channel
-CTL_GRAPHICAL_EQUALIZER_BY_LUMINANCE;Graphical equalizer by luminance
+CTL_GAMMA_SLOPE;Gamma/Slope
+CTL_GAMUT_COMPRESSION;Gamut compression
+CTL_GENERALISED_HYPERBOLIC_STRETCH;Generalised hyperbolic stretch
+CTL_GLOBAL_BRILLIANCE;Global brilliance
+CTL_GLOBAL_CHROMA;Global chroma
+CTL_GLOBAL_SATURATION;Global saturation
 CTL_GRAPHICAL_EQUALIZER_BY_HUE;Graphical equalizer by hue
+CTL_GRAPHICAL_EQUALIZER_BY_LUMINANCE;Graphical equalizer by luminance
 CTL_GRAPHICAL_EQUALIZER_BY_SATURATION;Graphical equalizer by saturation
+CTL_GREEN;Green
+CTL_HIGHLIGHTS;Highlights
+CTL_HIGHLIGHT_PROTECTION_POINT;Highlight protection point (HP)
+CTL_HUE;Hue
+CTL_HUE_PRESERVATION;Hue preservation
+CTL_HUE_SHIFT;Hue shift
+CTL_LIGHTNESS;Lightness
+CTL_LIMIT;Limit
+CTL_LINEAR_CHROMA_GRADING;Linear chroma grading
+CTL_LOCAL_STRETCH_INTENSITY;Local stretch intensity (b)
+CTL_LUMINANCE;Luminance
+CTL_MAGENTA;Magenta
+CTL_MIDTONES;Midtones
+CTL_MODE;Mode
+CTL_MULTIPLY;Multiply
+CTL_MUTED;Muted
+CTL_NEUTRAL;Neutral
+CTL_NONE;None
+CTL_NORMAL;Normal
+CTL_OFFSET;Offset
+CTL_OFFSET_LIFT;Offset/Lift
+CTL_PERCEPTUAL_BRILLIANCE_GRADING;Perceptual brilliance grading
+CTL_PERCEPTUAL_SATURATION_GRADING;Perceptual saturation grading
+CTL_POSTERIZATION;Posterization
+CTL_PRESERVE_LUMINANCE;Preserve luminance
+CTL_PURE;Pure
+CTL_RED;Red
+CTL_REVERSE;Reverse
+CTL_ROLL_OFF;Roll-off
+CTL_SATURATION;Saturation
+CTL_SCALE_MID_GRAY_WITH_WP;Scale mid gray with white point
+CTL_SHADOWS;Shadows
+CTL_SHADOWS_HIGHLIGHTS_BALANCE;Shadows/Highlights balance
+CTL_SHADOWS_TINT;Shadows tint
+CTL_SHADOW_LIFTING;Shadow lifting
+CTL_SHADOW_PROTECTION_POINT;Shadow protection point (LP)
+CTL_SIMPLE_SPLIT_TONING;Simple split toning
+CTL_SOFTLIGHT;Softlight
+CTL_STRENGTH;Strength
+CTL_STRETCH_FACTOR;Stretch factor (D)
+CTL_SUBTRACT;Subtract
+CTL_SUBTRACTIVE_COLOR_MIXING;Subtractive color mixing
+CTL_SYMMETRY_POINT;Symmetry point (SP)
+CTL_TARGET;Target
+CTL_TARGET_GAMUT;Target gamut
+CTL_TARGET_SPACE;Target space
+CTL_TETRAHEDRAL_COLOR_WARPING_HSL;Tetrahedral color warping (HSL)
+CTL_TETRAHEDRAL_COLOR_WARPING_RGB;Tetrahedral color warping (RGB)
+CTL_THRESHOLD;Threshold
+CTL_TINT_BY_LUMINANCE;Tint by luminance
 CTL_TONE_CURVE;Tone curve
-CTL_CURVE;Curve
+CTL_VIBRANCE;Vibrance
+CTL_VIVID;Vivid
+CTL_WB_AND_PRIMARIES_CORRECTION;WB and primaries correction
+CTL_WHITE;White
+CTL_WHITE_POINT;White point
+CTL_YELLOW;Yellow
