@@ -1,0 +1,93 @@
+# Nederlands
+#
+# CTL scripts 1.1
+#
+# Default language file
+#
+# 09-11-2024, Paul Matthijsse
+#
+CTL_B&W_MIXER;Z&W-mixer
+CTL_RED;Rood
+CTL_GREEN;Groen
+CTL_BLUE;Blauw
+CTL_CHANNEL_MIXER;Kanalenmixer
+CTL_COLOR_MIXING;Kleurenmixer
+CTL_COLOR_TO_MIX;Te mixen kleur
+CTL_AMOUNT;Hoeveelheid
+CTL_BLEND_MODE;Mengmodus
+CTL_NORMAL;Normaal
+CTL_ADD;Voeg toe
+CTL_SUBTRACT;Trek af
+CTL_MULTIPLY;Vermenigvuldig
+CTL_HUE;Tint
+CTL_COLOR;Kleur
+CTL_PRESERVE_LUMINANCE;Behoud luminantie
+CTL_FILM_DENSITY;Filmdensiteit
+CTL_SATURATION;Verzadiging
+CTL_DENSITY;Densiteit
+CTL_EXPOSURE_COMPENSATION;Belichtingscompensatie
+CTL_EXPOSURE_COMPENSATION_EV;Belichtingscompensatie (LW)
+CTL_GAMMA_SLOPE;Gamma/Helling
+CTL_DIRECTION;Richting
+CTL_FORWARD;Voorwaarts
+CTL_REVERSE;Achterwaarts
+CTL_EXPONENT;Exponent
+CTL_OFFSET;Offset
+CTL_GAMUT_COMPRESSION;Gamutcompressie
+CTL_TARGET_GAMUT;Doelgamut
+CTL_CYAN;Cyaan
+CTL_MAGENTA;Magenta
+CTL_YELLOW;Geel
+CTL_ROLL_OFF;Demping
+CTL_THRESHOLD;Drempel
+CTL_LIMIT;Limiet
+CTL_GENERALISED_HYPERBOLIC_STRETCH;Generalised hyperbolic stretch
+CTL_MODE;Modus
+CTL_STRETCH_FACTOR;Rekfactor (D)
+CTL_LOCAL_STRETCH_INTENSITY;Lokale rekintensiteit (b)
+CTL_SYMMETRY_POINT;Symmetriepunt (SP)
+CTL_SHADOW_PROTECTION_POINT;Beschermingspunt schaduwen (LP)
+CTL_HIGHLIGHT_PROTECTION_POINT;Beschermingspunt hoge lichten (HP)
+CTL_LUMINANCE;Luminantie
+CTL_EQUALIZER_BY_HUE;Equalizer op tint
+CTL_TARGET;Doel
+CTL_EQUALIZER_BY_LUMINANCE;Equalizer op luminantie
+CTL_ART_OUTPUT_TRANSFORM;ART uitvoertransformatie
+CTL_GAIN;Versterking (LW)
+CTL_CONTRAST;Contrast
+CTL_WHITE_POINT;Witpunt
+CTL_SCALE_MID_GRAY_WITH_WP;Schaal middelgrijs met witpunt
+CTL_TARGET_SPACE;Doelruimte
+CTL_NONE;Geen
+CTL_STRENGTH;Sterkte
+CTL_HUE_PRESERVATION;Tintbehoud
+CTL_POSTERIZATION;Posterisatie
+CTL_BITS_PER_CHANNEL;Bits per kanaal
+CTL_EQUALIZER_BY_SATURATION;Equalizer op verzadiging
+CTL_NEUTRAL;Neutraal
+CTL_MUTED;Gedempt
+CTL_AVERAGE;Gemiddeld
+CTL_VIVID;Levendig
+CTL_PURE;Puur
+CTL_SHADOW_LIFTING;Licht schaduwen op
+CTL_SOFTLIGHT;Zacht licht
+CTL_SHADOWS_HIGHLIGHTS_BALANCE;Balans schaduwen/hoge lichten
+CTL_SIMPLE_SPLIT_TONING;Simpel splittoning
+CTL_HIGHLIGHTS;Hoge lichten
+CTL_SHADOWS;Schaduwen
+CTL_SUBTRACTIVE_COLOR_MIXING;Subtractieve kleurenmixer
+CTL_TETRAHEDRAL_COLOR_WARPING_HSL;Tetrahedral color warping (HSL)
+CTL_OFFSET_LIFT;Verschuiving/Lift
+CTL_BLACK;Zwart
+CTL_LIGHTNESS;Lichtheid
+CTL_TETRAHEDRAL_COLOR_WARPING_RGB;Tetrahedral color warping (RGB)
+CTL_WHITE;Wit
+CTL_TINT_BY_LUMINANCE;Tint op luminantie
+CTL_WB_AND_PRIMARIES_CORRECTION;WB en correctie primaire kleuren
+CTL_SHADOWS_TINT;Tint schaduwen
+CTL_CHANNEL;Kanaal
+CTL_GRAPHICAL_EQUALIZER_BY_LUMINANCE;Graphische equalizer op luminantie
+CTL_GRAPHICAL_EQUALIZER_BY_HUE;Graphische equalizer op tint
+CTL_GRAPHICAL_EQUALIZER_BY_SATURATION;Graphische equalizer op verzadiging
+CTL_TONE_CURVE;Tooncurve
+CTL_CURVE;Curve
