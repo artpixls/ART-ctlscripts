@@ -1,0 +1,103 @@
+# French
+#
+# CTL scripts 1.1
+#
+# Default language file
+#
+#2024-11-11 Sébastien Guyader
+#
+CTL_ADD;Ajouter
+CTL_AMOUNT;Quantité
+CTL_ART_OUTPUT_TRANSFORM;Transformation de sortie ART
+CTL_AVERAGE;Moyenne
+CTL_B&W_MIXER;Mélangeur N&B
+CTL_BITS_PER_CHANNEL;Bits par canal
+CTL_BLACK;Noir
+CTL_BLEND_MODE;Mode de mélange
+CTL_BLUE;Bleu
+CTL_CHANNEL;Canal
+CTL_CHANNEL_MIXER;Mélangeur de canaux
+CTL_COLOR;Couleur
+CTL_COLOR_BALANCE_RGB;Balance couleur RGB
+CTL_COLOR_MIXING;Mélange de couleur
+CTL_COLOR_TO_MIX;Couleur à mélanger
+CTL_CONTRAST;Contraste
+CTL_CURVE;Courbe
+CTL_CYAN;Cyan
+CTL_DENSITY;Densité
+CTL_DIRECTION;Direction
+CTL_EQUALIZER_BY_HUE;Égaliseur par teinte
+CTL_EQUALIZER_BY_LUMINANCE;Égaliseur par luminance
+CTL_EQUALIZER_BY_SATURATION;Égaliseur par saturation
+CTL_EXPONENT;Exposant
+CTL_EXPOSURE_COMPENSATION;Compensation d'exposition
+CTL_EXPOSURE_COMPENSATION_EV;Compensation d'exposition (Ev)
+CTL_FILM_DENSITY;Densité Film
+CTL_FORWARD;En avant
+CTL_GAIN;Gain (Ev)
+CTL_GAMMA_SLOPE;Gamma/Pente
+CTL_GAMUT_COMPRESSION;Compression de Gamut
+CTL_GENERALISED_HYPERBOLIC_STRETCH;Étirement hyperbolique généralisé
+CTL_GLOBAL_BRILLIANCE;Brillance globale
+CTL_GLOBAL_CHROMA;Chroma global
+CTL_GLOBAL_SATURATION;Saturation globale
+CTL_GRAPHICAL_EQUALIZER_BY_HUE;Égaliseur graphique par teinte
+CTL_GRAPHICAL_EQUALIZER_BY_LUMINANCE;Égaliseur graphique par luminance
+CTL_GRAPHICAL_EQUALIZER_BY_SATURATION;Égaliseur graphique par saturation
+CTL_GREEN;Vert
+CTL_HIGHLIGHTS;Hautes lumières
+CTL_HIGHLIGHT_PROTECTION_POINT;Protection du point des Hautes lumières (HP)
+CTL_HUE;Teinte
+CTL_HUE_PRESERVATION;Préservation de le teinte
+CTL_HUE_SHIFT;Glissement de la teinte
+CTL_LIGHTNESS;Luminosité
+CTL_LIMIT;Limite
+CTL_LINEAR_CHROMA_GRADING;Étalonnage linéaire du chroma
+CTL_LOCAL_STRETCH_INTENSITY;Intensité de l'étirement local (b)
+CTL_LUMINANCE;Luminance
+CTL_MAGENTA;Magenta
+CTL_MIDTONES;Tons moyens
+CTL_MODE;Mode
+CTL_MULTIPLY;Multiplier
+CTL_MUTED;Atténué
+CTL_NEUTRAL;Neutre
+CTL_NONE;Aucun
+CTL_NORMAL;Normal
+CTL_OFFSET;Décalage
+CTL_OFFSET_LIFT;Décalage/Débouchage
+CTL_PERCEPTUAL_BRILLIANCE_GRADING;Étalonnage perceptuel de la brilliance
+CTL_PERCEPTUAL_SATURATION_GRADING;Étalonnage perceptuel de la saturation
+CTL_POSTERIZATION;Posterisation
+CTL_PRESERVE_LUMINANCE;Préserver la luminance
+CTL_PURE;Pure
+CTL_RED;Rouge
+CTL_REVERSE;Inverse
+CTL_ROLL_OFF;Affaiblissement progressif
+CTL_SATURATION;Saturation
+CTL_SCALE_MID_GRAY_WITH_WP;Mise à l'échelle du gris moyen avec le point blanc
+CTL_SHADOWS;Ombres
+CTL_SHADOWS_HIGHLIGHTS_BALANCE;Balance Ombres/Hautes lumières
+CTL_SHADOWS_TINT;Teinte des ombres
+CTL_SHADOW_LIFTING;Débouchage des Ombres
+CTL_SHADOW_PROTECTION_POINT;Protection du point des Ombres (LP)
+CTL_SIMPLE_SPLIT_TONING;Virage partiel simple
+CTL_SOFTLIGHT;Lumière douce
+CTL_STRENGTH;Force
+CTL_STRETCH_FACTOR;Facteur d'étirement (D)
+CTL_SUBTRACT;Soustraire
+CTL_SUBTRACTIVE_COLOR_MIXING;Mélange soustractif des couleurs
+CTL_SYMMETRY_POINT;Point de symétrie (SP)
+CTL_TARGET;Cible
+CTL_TARGET_GAMUT;Gamut cible
+CTL_TARGET_SPACE;Espace cible
+CTL_TETRAHEDRAL_COLOR_WARPING_HSL;Déformation tétraédrique des couleurs (HSL)
+CTL_TETRAHEDRAL_COLOR_WARPING_RGB;Déformation tétraédrique des couleurs (RGB)
+CTL_THRESHOLD;Seuil
+CTL_TINT_BY_LUMINANCE;Teinte par luminance
+CTL_TONE_CURVE;Courbe tonale
+CTL_VIBRANCE;Vibrance
+CTL_VIVID;Vivide
+CTL_WB_AND_PRIMARIES_CORRECTION;Correction balance des blancs et primaires
+CTL_WHITE;Blanc
+CTL_WHITE_POINT;Point blanc
+CTL_YELLOW;Jaune

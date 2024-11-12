@@ -76,11 +76,11 @@ CTL_SIMPLE_SPLIT_TONING;Egyszerűen felosztott tónusváltoztatás
 CTL_HIGHLIGHTS;Csúcsfények
 CTL_SHADOWS;Árnyékok
 CTL_SUBTRACTIVE_COLOR_MIXING;Kivonó színkeverés
-CTL_TETRAHEDRAL_COLOR_WARPING_HSL;Tetrahedral color warping (HSL)
+CTL_TETRAHEDRAL_COLOR_WARPING_HSL;Tetraéderes színátalakítás (HSL)
 CTL_OFFSET_LIFT;Kiegyenlítés/Kiemelés
 CTL_BLACK;Fekete
 CTL_LIGHTNESS;Világosság
-CTL_TETRAHEDRAL_COLOR_WARPING_RGB;Tetrahedral color warping (RGB)
+CTL_TETRAHEDRAL_COLOR_WARPING_RGB;Tetraéderes színátalakítás (RGB)
 CTL_WHITE;Fehér
 CTL_TINT_BY_LUMINANCE;Színárnyalat világosság szerint
 CTL_WB_AND_PRIMARIES_CORRECTION;Fehéregyensúly és elsődleges színek korrekciója
