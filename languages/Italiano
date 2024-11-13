@@ -1,0 +1,104 @@
+# Italiano
+#
+# CTL scripts 1.1
+#
+# Default language file
+#
+#2024-11-11 Alvaro De Amicis
+#
+CTL_ADD;Aggiungi
+CTL_AMOUNT;Quantità
+CTL_ART_OUTPUT_TRANSFORM;trasformazione di uscita ART
+CTL_AVERAGE;Media
+CTL_B&W_MIXER;Miscelatore BN
+CTL_BITS_PER_CHANNEL;Bit per canale
+CTL_BLACK;Nero
+CTL_BLEND_MODE;Modalità di miscelazione
+CTL_BLUE;Blu
+CTL_CHANNEL;Canale
+CTL_CHANNEL_MIXER;Miscelatore di canale
+CTL_COLOR;Colore
+CTL_COLOR_BALANCE_RGB;Bilanciamento colore RGB
+CTL_COLOR_MIXING;Miscelatore colore
+CTL_COLOR_TO_MIX;Colore da miscelare
+CTL_CONTRAST;Contrasto
+CTL_CURVE;Curva
+CTL_CYAN;Ciano
+CTL_DENSITY;Densità
+CTL_DIRECTION;Direzione
+CTL_EQUALIZER_BY_HUE;Equalizzatore per tinta
+CTL_EQUALIZER_BY_LUMINANCE;Equalizzatore per luminanza
+CTL_EQUALIZER_BY_SATURATION;Equalizzatore per saturazione
+CTL_EXPONENT;Esponente
+CTL_EXPOSURE_COMPENSATION;Compensazione esposizione
+CTL_EXPOSURE_COMPENSATION_EV;Compensazione esposizione (Ev)
+CTL_FILM_DENSITY;Densità pellicola
+CTL_FORWARD;Avanti
+CTL_GAIN;Guadagno (Ev)
+CTL_GAMMA_SLOPE;Gamma/Pendenza
+CTL_GAMUT_COMPRESSION;Compressione Gamut
+CTL_GENERALISED_HYPERBOLIC_STRETCH;Stiramento iperbolico generalizzato (GHS)
+CTL_GLOBAL_BRILLIANCE;Brillantezza globale
+CTL_GLOBAL_CHROMA;Croma globale
+CTL_GLOBAL_SATURATION;Saturazione globale
+CTL_GRAPHICAL_EQUALIZER_BY_HUE;Equalizzatore grafico per tinta
+CTL_GRAPHICAL_EQUALIZER_BY_LUMINANCE;Equalizzatore grafico per luminanza
+CTL_GRAPHICAL_EQUALIZER_BY_SATURATION;Equalizzatore grafico per saturazione
+CTL_GREEN;Verde
+CTL_HIGHLIGHTS;Alte luci
+CTL_HIGHLIGHT_PROTECTION_POINT;Punto di protezione alte luci (HP)
+CTL_HUE;Tinta
+CTL_HUE_PRESERVATION;Mantenimento tinta
+CTL_HUE_SHIFT;Spostamento tinta
+CTL_LIGHTNESS;Luminosità
+CTL_LIMIT;Limite
+CTL_LINEAR_CHROMA_GRADING;Gradazione lineare croma
+CTL_LOCAL_STRETCH_INTENSITY;Intensità stiramento locale (b)
+CTL_LUMINANCE;Luminanza
+CTL_MAGENTA;Magenta
+CTL_MIDTONES;Toni medi
+CTL_MODE;Modalità
+CTL_MULTIPLY;Moltiplica
+CTL_MUTED;Muted
+CTL_NEUTRAL;Neutrale
+CTL_NONE;Nessuno
+CTL_NORMAL;Normale
+CTL_OFFSET;Scostamento
+CTL_OFFSET_LIFT;Scostamento/Innalzamento
+CTL_PERCEPTUAL_BRILLIANCE_GRADING;Gradazione percettiva brillantezza
+CTL_PERCEPTUAL_SATURATION_GRADING;Gradazione percettiva saturazione
+CTL_POSTERIZATION;Posterizzazione
+CTL_PRESERVE_LUMINANCE;Mantieni luminanza
+CTL_PURE;Puro
+CTL_RED;Rosso
+CTL_REVERSE;Inverti
+CTL_ROLL_OFF;Roll-off
+CTL_SATURATION;Saturazione
+CTL_SCALE_MID_GRAY_WITH_WP;Scala grigio medio con punto bianco
+CTL_SHADOWS;Ombre
+CTL_SHADOWS_HIGHLIGHTS_BALANCE;Bilanciamento ombre/alte luci
+CTL_SHADOWS_TINT;Tinta ombre
+CTL_SHADOW_LIFTING;Innalzamento ombre
+CTL_SHADOW_PROTECTION_POINT;Punto di protezione ombre (LP)
+CTL_SIMPLE_SPLIT_TONING;Divisione di tono semplice
+CTL_SOFTLIGHT;Luce soffusa
+CTL_STRENGTH;Intensità
+CTL_STRETCH_FACTOR;Fattore di stiramento (D)
+CTL_SUBTRACT;Sottrai
+CTL_SUBTRACTIVE_COLOR_MIXING;Miscelatore colore sottrattivo
+CTL_SYMMETRY_POINT;Punto di simmetria (SP)
+CTL_TARGET;Obiettivo
+CTL_TARGET_GAMUT;Gamut finale
+CTL_TARGET_SPACE;Spazio finale
+CTL_TETRAHEDRAL_COLOR_WARPING_HSL;Curvatura colore Tetraedrico (HSL)
+CTL_TETRAHEDRAL_COLOR_WARPING_RGB;Curvatura colore Tetraedrico (RGB)
+CTL_THRESHOLD;Soglia
+CTL_TINT_BY_LUMINANCE;Tinta per luminanza
+CTL_TONE_CURVE;Curva di tono
+CTL_VIBRANCE;Vibrance
+CTL_VIVID;Vivido
+CTL_WB_AND_PRIMARIES_CORRECTION;Correzione WB e primari
+CTL_WHITE;Bianco
+CTL_WHITE_POINT;Punto bianco
+CTL_YELLOW;Giallo
+
