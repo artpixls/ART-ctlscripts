@@ -1,6 +1,6 @@
 # README
 
-This repository contains a list of [custom CTL scritps](https://bitbucket.org/agriggio/art/wiki/Luts#ctl-scripts) plugins for the [ART](https://bitbucket.org/agriggio/art) raw processor.
+This repository contains a list of [custom CTL scritps](https://art.pixls.us/Luts) plugins for the [ART](https://art.pixls.us) raw processor.
 
 ## Installation in ART
 
