@@ -70,7 +70,7 @@ CTL_PERCEPTUAL_SATURATION_GRADING;Észlelési telítettség korrekció
 CTL_POSTERIZATION;Poszterezés
 CTL_PRESERVE_LUMINANCE;Világosság megőrzése
 CTL_PURE;Tiszta
-CTL_RED;Piros
+CTL_RED;Vörös
 CTL_REVERSE;Fordított
 CTL_ROLL_OFF;Hatáscsökkenés árnyékokban
 CTL_SATURATION;Telítettség
