@@ -18,14 +18,34 @@
  */
 
 // @ART-label: "$CTL_EQUALIZER_BY_SATURATION;Equalizer by saturation"
-// @ART-colorspace: "rec2020"
+// @ART-colorspace: "rec709"
 
 import "_artlib";
 
 
+const float xyz_m[3][3] = transpose_f33(mult_f33_f33(d65_d50, xyz_rec709));
+const float xyz_invm[3][3] = invert_f33(xyz_m);
+
+float[3] to_hsl(float r, float g, float b)
+{
+    float rgb[3] = { r, g, b };
+    float xyz[3] = mult_f3_f33(rgb, xyz_m);
+    float oklab[3] = d65xyz2oklab(xyz);
+    return oklab2hcl(oklab);
+}
+
+
+float[3] to_rgb(float hsl[3])
+{
+    float oklab[3] = hcl2oklab(hsl);
+    float xyz[3] = oklab2d65xyz(oklab);
+    return mult_f3_f33(xyz, xyz_invm);
+}
+
+
 float sat(float r, float g, float b)
 {
-    return rgb2hsl(r, g, b)[1];
+    return to_hsl(r, g, b)[1];
 }
 
 
@@ -77,7 +97,7 @@ void ART_main(varying float r, varying float g, varying float b,
               int vivid,
               int pure)
 {
-    float hsl[3] = rgb2hsl(r, g, b);
+    float hsl[3] = to_hsl(r, g, b);
     float f = get_factor(hsl[1], gray, muted, average, vivid, pure);
     if (mode == 0) {
         float s = fmax(1 + f*2, 0);
@@ -92,7 +112,7 @@ void ART_main(varying float r, varying float g, varying float b,
         }
         hsl[0] = hsl[0] + s * M_PI;
     }
-    float rgb[3] = hsl2rgb(hsl);
+    float rgb[3] = to_rgb(hsl);
     rout = rgb[0];
     gout = rgb[1];
     bout = rgb[2];

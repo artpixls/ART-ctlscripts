@@ -18,28 +18,60 @@
  */
 
 // @ART-label: "$CTL_EQUALIZER_BY_HUE;Equalizer by hue"
-// @ART-colorspace: "rec2020"
+// @ART-colorspace: "rec709"
 
 import "_artlib";
+
+const float xyz_m[3][3] = transpose_f33(mult_f33_f33(d65_d50, xyz_rec709));
+const float xyz_invm[3][3] = invert_f33(xyz_m);
+
+float[3] to_hsl(float r, float g, float b)
+{
+    float rgb[3] = { r, g, b };
+    float xyz[3] = mult_f3_f33(rgb, xyz_m);
+    float oklab[3] = d65xyz2oklab(xyz);
+    return oklab2hcl(oklab);
+}
+
+
+float[3] to_rgb(float hsl[3])
+{
+    float oklab[3] = hcl2oklab(hsl);
+    float xyz[3] = oklab2d65xyz(oklab);
+    return mult_f3_f33(xyz, xyz_invm);
+}
+
+
+float deg01(float rad)
+{
+    float d = rad * 180.0 / M_PI;
+    if (d < 0) {
+        d = d + 360.0;
+    } else if (d > 360.0) {
+        d = d - 360.0;
+    }
+    return d / 360.0;
+}
 
 
 float hue(float r, float g, float b)
 {
-    return rgb2hsl(r, g, b)[0];
+    return deg01(to_hsl(r, g, b)[0]);
 }
 
 
-const float centers[6] = {
-    hue(1, 0, 0), hue(1, 0, 1), hue(0, 0, 1),
-    hue(0, 1, 1), hue(0, 1, 0), hue(1, 1, 0)
+const float centers[10] = {
+    hue(0, 0, 1) - 1, hue(1, 0, 1) - 1,
+    hue(1, 0, 0), hue(1, 1, 0), hue(0, 1, 0), hue(0, 1, 1), hue(0, 0, 1), hue(1, 0, 1),
+    hue(1, 0, 0) + 1, hue(1, 1, 0) + 1
 };
 
-const float sigma2 = M_PI / 6;
+const float sigma2 = 0.5 / 6;
 
 float gauss_sum()
 {
     float res = 0;
-    for (int i = 0; i < 6; i = i+1) {
+    for (int i = 0; i < 10; i = i+1) {
         res = res + gauss(centers[i], sigma2, 0);
     }
     return res;
@@ -51,9 +83,13 @@ const float w_sum = gauss_sum();
 float get_factor(float h, int red, int magenta, int blue,
                  int cyan, int green, int yellow)
 {
-    const float f[6] = { red, magenta, blue, cyan, green, yellow };
+    const float f[10] = {
+        blue, magenta,
+        red, yellow, green, cyan, blue, magenta,
+        red, yellow
+    };
     float res = 0;
-    for (int i = 0; i < 6; i = i+1) {
+    for (int i = 0; i < 10; i = i+1) {
         res = res + f[i]/100 * gauss(centers[i], sigma2, h);
     }
     return res / w_sum;
@@ -64,11 +100,11 @@ const float noise = pow(2, -16);
 
 // @ART-param: ["mode", "$CTL_TARGET;Target", ["$TP_COLORCORRECTION_H", "$TP_COLORCORRECTION_S", "$TP_COLORCORRECTION_L"]]
 // @ART-param: ["red", "$CTL_RED;Red", -100, 100, 0]
-// @ART-param: ["magenta", "$CTL_MAGENTA;Magenta", -100, 100, 0]
-// @ART-param: ["blue", "$CTL_BLUE;Blue", -100, 100, 0]
-// @ART-param: ["cyan", "$CTL_CYAN;Cyan", -100, 100, 0]
-// @ART-param: ["green", "$CTL_GREEN;Green", -100, 100, 0]
 // @ART-param: ["yellow", "$CTL_YELLOW;Yellow", -100, 100, 0]
+// @ART-param: ["green", "$CTL_GREEN;Green", -100, 100, 0]
+// @ART-param: ["cyan", "$CTL_CYAN;Cyan", -100, 100, 0]
+// @ART-param: ["blue", "$CTL_BLUE;Blue", -100, 100, 0]
+// @ART-param: ["magenta", "$CTL_MAGENTA;Magenta", -100, 100, 0]
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,
@@ -82,8 +118,8 @@ void ART_main(varying float r, varying float g, varying float b,
               int green,
               int yellow)
 {
-    float hsl[3] = rgb2hsl(r, g, b);
-    float f = get_factor(hsl[0], red, magenta, blue, cyan, green, yellow);
+    float hsl[3] = to_hsl(r, g, b);
+    float f = get_factor(deg01(hsl[0]), red, magenta, blue, cyan, green, yellow);
     if (mode == 0) {
         float s = f*f;
         if (f < 0) {
@@ -104,7 +140,7 @@ void ART_main(varying float r, varying float g, varying float b,
         s = pow(2, 10 * (f * s));
         hsl[2] = hsl[2] * s;
     }
-    float rgb[3] = hsl2rgb(hsl);
+    float rgb[3] = to_rgb(hsl);
     rout = rgb[0];
     gout = rgb[1];
     bout = rgb[2];

@@ -64,6 +64,13 @@ const float identity_33[3][3] = {
 };
 
 
+const float d65_d50[3][3] = {
+    { 0.95557665, -0.02303943, 0.0631637 },
+    {-0.02828954,  1.00994168, 0.02100761},
+    { 0.01229815, -0.02048307,  1.32990984}
+};
+
+
 float luminance(float r, float g, float b)
 {
     return r * xyz_rec2020[1][0] + g * xyz_rec2020[1][1] + b * xyz_rec2020[1][2];
@@ -341,4 +348,64 @@ float log2lin(float x, float base)
 float luteval(float lut[], float x, float vmin=0, float vmax=1)
 {
     return lookupCubic1D(lut, vmin, vmax, x);
+}
+
+const float oklab_M1_t[3][3] = {
+    {0.8189330101, 0.0329845436, 0.0482003018},
+    {0.3618667424, 0.9293118715, 0.2643662691},
+    {-0.1288597137, 0.0361456387, 0.6338517070}
+};
+
+const float oklab_M1inv_t[3][3] = invert_f33(oklab_M1_t);
+
+const float oklab_M2_t[3][3] = {
+    {0.2104542553, 1.9779984951, 0.0259040371},
+    {0.7936177850, -2.4285922050, 0.7827717662},
+    {-0.0040720468, 0.4505937099, -0.8086757660}
+};
+
+const float oklab_M2inv_t[3][3] = invert_f33(oklab_M2_t);
+
+
+float[3] d65xyz2oklab(float xyz[3])
+{
+    const float p = 1.0/3.0;
+    
+    float lms[3] = mult_f3_f33(xyz, oklab_M1_t);
+    for (int i = 0; i < 3; i = i+1) {
+        lms[i] = pow(lms[i], p);
+    }
+    float oklab[3] = mult_f3_f33(lms, oklab_M2_t);
+    return oklab;
+}
+
+
+float[3] oklab2d65xyz(float oklab[3])
+{
+    const float p = 3.0;
+    
+    float lms[3] = mult_f3_f33(oklab, oklab_M2inv_t);
+    for (int i = 0; i < 3; i = i+1) {
+        lms[i] = pow(lms[i], p);
+    }
+    float xyz[3] = mult_f3_f33(lms, oklab_M1inv_t);
+    return xyz;
+}
+
+
+float[3] oklab2hcl(float oklab[3])
+{
+    float h = atan2(oklab[2], oklab[1]);
+    float c = hypot(oklab[2], oklab[1]);
+    float hcl[3] = { h, c, oklab[0] };
+    return hcl;
+}
+
+
+float[3] hcl2oklab(float hcl[3])
+{
+    float a = hcl[1] * cos(hcl[0]);
+    float b = hcl[1] * sin(hcl[0]);
+    float oklab[3] = { hcl[2], a, b };
+    return oklab;
 }

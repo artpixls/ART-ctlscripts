@@ -3,6 +3,27 @@
 
 import "_artlib";
 
+const float xyz_m[3][3] = transpose_f33(mult_f33_f33(d65_d50, xyz_rec2020));
+const float xyz_invm[3][3] = invert_f33(xyz_m);
+
+
+float[3] to_hsl(float r, float g, float b)
+{
+    float rgb[3] = { r, g, b };
+    float xyz[3] = mult_f3_f33(rgb, xyz_m);
+    float oklab[3] = d65xyz2oklab(xyz);
+    return oklab2hcl(oklab);
+}
+
+
+float[3] to_rgb(float hsl[3])
+{
+    float oklab[3] = hcl2oklab(hsl);
+    float xyz[3] = oklab2d65xyz(oklab);
+    return mult_f3_f33(xyz, xyz_invm);
+}
+
+
 float tolin(float y, float base)
 {
     float v = (y - 0.5) * 2.0;
@@ -18,7 +39,7 @@ void ART_main(varying float r, varying float g, varying float b,
               output varying float bout,
               float hcurve[256], float scurve[256], float lcurve[256])
 {
-    float hsl[3] = rgb2hsl(r, g, b);
+    float hsl[3] = to_hsl(r, g, b);
     float y = pow(clamp(hsl[1], 0, 1), 1.0/3.5);
     float v = luteval(hcurve, y);
     float f = tolin(v, 50) * M_PI;
@@ -30,7 +51,7 @@ void ART_main(varying float r, varying float g, varying float b,
     v = luteval(lcurve, y) - 0.5;
     f = 1 + sgn(v) * pow(v, 2) * 5;
     hsl[2] = hsl[2] * f;
-    float rgb[3] = hsl2rgb(hsl);
+    float rgb[3] = to_rgb(hsl);
     rout = rgb[0];
     gout = rgb[1];
     bout = rgb[2];
