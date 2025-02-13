@@ -23,27 +23,6 @@
 import "_artlib";
 
 
-const float xyz_m[3][3] = transpose_f33(mult_f33_f33(d65_d50, xyz_rec2020));
-const float xyz_invm[3][3] = invert_f33(xyz_m);
-
-
-float[3] to_hsl(float r, float g, float b)
-{
-    float rgb[3] = { r, g, b };
-    float xyz[3] = mult_f3_f33(rgb, xyz_m);
-    float oklab[3] = d65xyz2oklab(xyz);
-    return oklab2hcl(oklab);
-}
-
-
-float[3] to_rgb(float hsl[3])
-{
-    float oklab[3] = hcl2oklab(hsl);
-    float xyz[3] = oklab2d65xyz(oklab);
-    return mult_f3_f33(xyz, xyz_invm);
-}
-
-
 float conv(int v, float lo, float hi)
 {
     float f;
@@ -187,11 +166,11 @@ void ART_main(varying float r, varying float g, varying float b,
         rgb[0] = r;
         rgb[1] = g;
         rgb[2] = b;
-        float hsl[3] = to_hsl(r, g, b);
+        float hsl[3] = rgb2okhcl(r, g, b);
         f = log2(f) * 0.5;
         float sat = fmax(1 + f, 0);
         hsl[1] = hsl[1] * sat;
-        rgb = to_rgb(hsl);
+        rgb = okhcl2rgb(hsl);
         rout = rgb[0];
         gout = rgb[1];
         bout = rgb[2];

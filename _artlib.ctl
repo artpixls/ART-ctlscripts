@@ -409,3 +409,23 @@ float[3] hcl2oklab(float hcl[3])
     float oklab[3] = { hcl[2], a, b };
     return oklab;
 }
+
+
+const float d65xyz_rec2020_t[3][3] = transpose_f33(mult_f33_f33(d65_d50, xyz_rec2020));
+const float rec2020_d65xyz_t[3][3] = invert_f33(d65xyz_rec2020_t);
+
+float[3] rgb2okhcl(float r, float g, float b)
+{
+    float rgb[3] = { r, g, b };
+    float xyz[3] = mult_f3_f33(rgb, d65xyz_rec2020_t);
+    float oklab[3] = d65xyz2oklab(xyz);
+    return oklab2hcl(oklab);
+}
+
+
+float[3] okhcl2rgb(float hsl[3])
+{
+    float oklab[3] = hcl2oklab(hsl);
+    float xyz[3] = oklab2d65xyz(oklab);
+    return mult_f3_f33(xyz, rec2020_d65xyz_t);
+}
