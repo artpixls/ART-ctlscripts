@@ -17,11 +17,11 @@ float spow(float b, float e)
 
 float[3] torgb(float r, float g, float b, float dh, float ds, float dl)
 {
-    float hsl[3] = rgb2hsl(r, g, b);
+    float hsl[3] = rgb2okhcl(r, g, b);
     hsl[0] = hsl[0] + spow(dh, 1.5) * M_PI;
-    hsl[1] = hsl[1] + spow(ds, 1.5);
-    hsl[2] = hsl[2] * pow(2, 5*sgn(dl)*dl*dl);
-    return hsl2rgb(hsl);
+    hsl[1] = hsl[1] + spow(ds, 10);
+    hsl[2] = pow(pow(hsl[2], 3) * pow(2, 5*sgn(dl)*dl*dl), 1.0/3.0);
+    return okhcl2rgb(hsl);
 }
 
 
@@ -99,7 +99,7 @@ void ART_main(varying float r, varying float g, varying float b,
     float blk[3] = uvtorgb(0, 0, 0, blk_u, blk_v, BLK_O / 25);
     float wht_u;
     float wht_v;
-    hs2uv(WHT_H, WHT_S * 0.75, wht_u, wht_v);
+    hs2uv(WHT_H, WHT_S * 0.25, wht_u, wht_v);
     float wht[3] = uvtorgb(1, 1, 1, wht_u, wht_v, 0);
     float red[3] = torgb(1, 0, 0, RED_H, RED_S, RED_L);
     float grn[3] = torgb(0, 1, 0, GRN_H, GRN_S, GRN_L);
