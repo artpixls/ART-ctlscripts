@@ -19,7 +19,7 @@ float[3] torgb(float r, float g, float b, float dh, float ds, float dl)
 {
     float hsl[3] = rgb2okhcl(r, g, b);
     hsl[0] = hsl[0] + spow(dh, 1.5) * M_PI;
-    hsl[1] = hsl[1] + spow(ds, 10);
+    hsl[1] = hsl[1] + spow(ds, 2);
     hsl[2] = pow(pow(hsl[2], 3) * pow(2, 5*sgn(dl)*dl*dl), 1.0/3.0);
     return okhcl2rgb(hsl);
 }
