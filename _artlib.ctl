@@ -429,3 +429,69 @@ float[3] okhcl2rgb(float hsl[3])
     float xyz[3] = oklab2d65xyz(oklab);
     return mult_f3_f33(xyz, rec2020_d65xyz_t);
 }
+
+
+float[3] temp_to_xy(float temp)
+{
+    float T = temp;
+    if (temp < 1667) {
+        T = 1667;
+    } else if (temp > 25000) {
+        T = 25000;
+    }
+    const float T1 = 1e3 / T;
+    const float T2 = T1 * T1;
+    const float T3 = T2 * T1;
+    float x;
+    float y;
+    if (T <= 4000) {
+        x = -0.2661239 * T3 - 0.2343589 * T2 + 0.8776956 * T1 + 0.179910;
+    } else {
+        x = -3.0258469 * T3 + 2.1070379 * T2 + 0.2226347 * T1 + 0.24039;
+    }
+    const float x2 = x * x;
+    const float x3 = x2 * x;
+    if (T <= 2222) {
+        y = -1.1063814 * x3 - 1.34811020 * x2 + 2.18555832 * x - 0.20219683;
+    } else if (T <= 4000) {
+        y = -0.9549476 * x3 - 1.37418593 * x2 + 2.09137015 * x - 0.16748867;
+    } else {
+        y = 3.0817580 * x3 - 5.87338670 * x2 + 3.75112997 * x - 0.37001483;
+    }
+    float res[3] = {x, y, 1.0 - x - y};
+    return res;
+}
+
+
+/* float get_normal_slope(float temp) */
+/* { */
+/*     float xy[3] = temp_to_xy(temp); */
+/*     float hi[3] = temp_to_xy(temp-100); */
+/*     float slope = 0; */
+/*     float t = (hi[1] - xy[1]) / (hi[0] - xy[0]); */
+/*     float m = -1.0 / t; */
+/*     float q = xy[1] - m * xy[0]; */
+/*     return m; */
+/* } */
+
+
+float[3] temp_tint_to_xy(float temp, float tint)
+{
+    float xy[3] = temp_to_xy(temp);
+    float x = xy[0];
+    float y = xy[1];
+
+    float hi[3] = temp_to_xy(temp-100);
+    float t = (hi[1] - xy[1]) / (hi[0] - xy[0]);
+    float m = -1.0 / t;
+    
+    /* float m = get_normal_slope(temp); */
+    const float angle = atan(m);
+    x = x + cos(angle) * tint;
+    y = y + sin(angle) * tint;
+
+    float res[3] = { x, y, 1.0 - x - y };
+    return res;
+}
+
+
