@@ -33,6 +33,7 @@ SOFTWARE.
 
 // @ART-param: ["evgain", "$CTL_GAIN;Gain (Ev)", 0.0, 4.0, 0.5, 0.01]
 // @ART-param: ["contrast", "$CTL_CONTRAST;Contrast", -100, 100, 25]
+// @ART-param: ["sat", "$CTL_SATURATION;Saturation", -100, 100, 0]
 // @ART-param: ["white_point", "$CTL_WHITE_POINT;White point", 0.8, 40.0, 1.0, 0.1]
 // @ART-param: ["scale_mid_gray", "$CTL_SCALE_MID_GRAY_WITH_WP;Scale mid gray with white point", false]
 // @ART-param: ["gc_colorspace", "$CTL_TARGET_SPACE;Target space", ["$CTL_NONE;None", "Rec.2020", "Rec.709 / sRGB", "DCI-P3", "Adobe RGB"], 2, "$CTL_GAMUT_COMPRESSION;Gamut compression"]
@@ -149,7 +150,7 @@ void ART_main(varying float r, varying float g, varying float b,
               output varying float gout,
               output varying float bout,
               float evgain,
-              int contrast, float white_point,
+              int contrast, int sat, float white_point,
               bool scale_mid_gray, int gc_colorspace, float gc_strength,
               float hue_preservation)
 {
@@ -204,6 +205,7 @@ void ART_main(varying float r, varying float g, varying float b,
         }
         sat_factor = 1 - contrast / 750.0;
     }
+    sat_factor = sat_factor * (sat + 100.0) / 100.0;
 
     res = creative_hue_sat_tweaks(1.0 - hue_preservation, sat_factor, r, g, b,
                                   white_point, res);
