@@ -1,5 +1,6 @@
 // @ART-label: "$CTL_GAMMA_SLOPE;Gamma/slope"
 // @ART-colorspace: "rec2020"
+// @ART-lut: -1
 
 import "_artlib";
 
