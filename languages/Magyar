@@ -4,11 +4,11 @@
 #
 # Default language file
 #
-#2024-11-17 Bereczky Péter
+#2025-03-08 Bereczky Péter
 #
 CTL_ADD;Hozzáadás
 CTL_AMOUNT;Összeg
-CTL_ART_OUTPUT_TRANSFORM;ART kimeneti átalakítás
+CTL_ART_OUTPUT_TRANSFORM;ART kimenet átalakítása
 CTL_AVERAGE;Átlagos
 CTL_B&W_MIXER;Fekete-fehér keverő
 CTL_BITS_PER_CHANNEL;Színcsatornánkénti bitek száma
@@ -67,14 +67,14 @@ CTL_OFFSET;Kiegyenlítés
 CTL_OFFSET_LIFT;Kiegyenlítés/Kiemelés
 CTL_PERCEPTUAL_BRILLIANCE_GRADING;Észlelési ragyogás korrekció
 CTL_PERCEPTUAL_SATURATION_GRADING;Észlelési telítettség korrekció
-CTL_POSTERIZATION;Poszterezés
+CTL_POSTERIZATION;Poszterizáció
 CTL_PRESERVE_LUMINANCE;Világosság megőrzése
 CTL_PURE;Tiszta
 CTL_RED;Vörös
 CTL_REVERSE;Fordított
 CTL_ROLL_OFF;Hatáscsökkenés árnyékokban
 CTL_SATURATION;Telítettség
-CTL_SCALE_MID_GRAY_WITH_WP;Középszürke skála fehér ponttal
+CTL_SCALE_MID_GRAY_WITH_WP;Középszürke skála Fehér ponttal
 CTL_SHADOW_LIFTING;Árnyékok kiemelése
 CTL_SHADOW_PROTECTION_POINT;Árnyékvédelmi pont (LP)
 CTL_SHADOWS;Árnyékok
@@ -86,7 +86,7 @@ CTL_STRENGTH;Erősség
 CTL_STRETCH_FACTOR;Nyújtási tényező (D)
 CTL_SUBTRACT;Kivonás
 CTL_SUBTRACTIVE_COLOR_MIXING;Kivonó színkeverés
-CTL_SYMMETRY_POINT;Szimmetria pont (SP)
+CTL_SYMMETRY_POINT;Szimmetriapont (SP)
 CTL_TARGET;Cél
 CTL_TARGET_GAMUT;Céltartomány
 CTL_TARGET_SPACE;Célterület
@@ -99,5 +99,5 @@ CTL_VIBRANCE;Élénkség
 CTL_VIVID;Élénk
 CTL_WB_AND_PRIMARIES_CORRECTION;Fehéregyensúly és elsődleges színek korrekciója
 CTL_WHITE;Fehér
-CTL_WHITE_POINT;Fehérpont
+CTL_WHITE_POINT;Fehér pont
 CTL_YELLOW;Sárga
