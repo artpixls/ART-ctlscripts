@@ -1293,6 +1293,12 @@ void ART_main(varying float r, varying float g, varying float b,
                          tn_gb,
                          pt_hdr);
 
+  if (display_gamut == 0) {
+      rgb = vdot(matrix_xyz_to_rec2020, vdot(matrix_rec709_to_xyz, rgb));
+  } else if (display_gamut == 1) {
+    rgb = vdot(matrix_xyz_to_rec2020, vdot(matrix_p3d65_to_xyz, rgb));
+  }
+
   float outscale = tn_Lp / 100.0;
 
   rout = rgb.x * outscale;
