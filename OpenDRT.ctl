@@ -801,7 +801,7 @@ float3 transform(float p_R, float p_G, float p_B,
 // @ART-colorspace: "rec2020"
 // @ART-lut: 64
 
-// @ART-param: ["evgain", "Gain (Ev)", -2.0, 2.0, 0.0, 0.01]
+// @ART-param: ["ex", "Exposure", -4.0, 4.0, 0.697437, 0.01]
 // @ART-param: ["tn_Lp", "Display Peak Luminance", 100, 1000, 100, 0.1]
 // @ART-param: ["tn_gb", "HDR Grey Boost", 0, 1, 0.13, 0.01]
 // @ART-param: ["pt_hdr", "HDR Purity", 0, 1, 0.5, 0.01]
@@ -818,7 +818,7 @@ void ART_main(varying float r, varying float g, varying float b,
               float tn_Lp, float tn_gb, float pt_hdr,
               int look_preset, int tonescale_preset,
               int _cwp, float _cwp_rng,
-              int display_gamut, float evgain)
+              int display_gamut, float ex)
 {
   // **************************************************
   // Parameter Setup
@@ -1224,7 +1224,18 @@ void ART_main(varying float r, varying float g, varying float b,
   else if (_cwp==2) cwp = 2; // D55
   else if (_cwp==3) cwp = 3; // D50
 
-  const float gain = 18.0 / 11.0 * pow(2.0, evgain);
+  /* `ex` is a user controlled exposure adjustment.
+      For the tonescale presets where tn_Lg=0.111, the default value of ex=0.697437 sets middle grey 
+      so that "scene-linear" input value 0.18 maps to a "display-linear" output value of 0.18.
+      Put another way: The image formation algorithm does not change the position of middle grey.
+      OpenDRT is targeted more towards video workflows, where it is more common for middle grey to be
+      placed following the Rec.709 OETF, which is why many of the tonescale presets map 0.18 to 0.111.
+      This exposure control's default value is meant to compensate for the expectations of still photography, 
+      where it might be confusing for overall image exposure to be changed by the image formation transform.
+      Having the default value be non-zero still allows the user to set the exposure value to 0 and
+      match the OpenDRT presets exactly if desired.
+  */
+  const float gain = pow(2.0, ex);
 
   float3 rgb = transform(r * gain, g * gain, b * gain,
                          4,
