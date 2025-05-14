@@ -4,8 +4,9 @@
 // inspired by the AgX picture formation (https://github.com/sobotka/AgX)
 // the name is obviously a joke...
 // 
-// @ART-param: ["curve", "Tone curve", 0, ["CatmullRom", 0, 0, 0.1, 0.1, 0.55, 0.87, 1, 1]]
+// @ART-param: ["curve", "Base curve", 0, ["CatmullRom", 0, 0, 0.1, 0.1, 0.55, 0.87, 1, 1]]
 // @ART-param: ["brightness", "Brightness", -1, 1, 0, 0.01]
+// @ART-param: ["contrast", "Contrast", -1, 1, 0, 0.01]
 // @ART-param: ["sat", "Saturation", 0.0, 2.0, 1.0, 0.01]
 // @ART-param: ["white_pt", "White point", 1, 10, 1, 0.1]
 // @ART-param: ["white_ev", "White relative exposure", 1, 10, 4.5, 0.01]
@@ -68,9 +69,13 @@ void ART_main(varying float r, varying float g, varying float b,
               output varying float gout,
               output varying float bout,
               float curve[256], float sat, float white_pt, float brightness,
-              float white_ev, float black_ev)
+              float white_ev, float black_ev, float contrast)
 {
     float rgb[3] = { r, g, b };
+    const float c = 1.0 + contrast;
+    for (int i = 0; i < 3; i = i+1) {
+        rgb[i] = pow(fmax(rgb[i], 0) / 0.18, c) * 0.18;
+    }
     const float pivot = 0.5 + brightness * 0.3;
     rgb = tone_mapping(rgb, white_pt, curve, sat, white_ev, black_ev, pivot);
     rout = rgb[0];
