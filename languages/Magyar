@@ -1,10 +1,10 @@
 # Hungarian
 #
-# CTL scripts 1.1
+# CTL scripts 1.2
 #
 # Default language file
 #
-#2025-03-08 Bereczky Péter
+#2025-06-10 Bereczky Péter
 #
 CTL_ADD;Hozzáadás
 CTL_AMOUNT;Összeg
@@ -26,35 +26,35 @@ CTL_CURVE;Görbe
 CTL_CYAN;Cián
 CTL_DENSITY;Fedettség
 CTL_DIRECTION;Irány
-CTL_EQUALIZER_BY_HUE;Kiegyenlítő színárnyalat szerint
-CTL_EQUALIZER_BY_LUMINANCE;Kiegyenlítő világosság szerint
+CTL_EQUALIZER_BY_HUE;Kiegyenlítő színezet szerint
+CTL_EQUALIZER_BY_LUMINANCE;Kiegyenlítő fényerő szerint
 CTL_EQUALIZER_BY_SATURATION;Kiegyenlítő telítettség szerint
 CTL_EXPONENT;Kitevő
 CTL_EXPOSURE_COMPENSATION;Expozíció-kompenzáció
 CTL_EXPOSURE_COMPENSATION_EV;Expozíció-kompenzáció (Fé)
-CTL_FILM_DENSITY;Film fedettség
+CTL_FILM_DENSITY;Filmfedettség
 CTL_FORWARD;Előre
 CTL_GAIN;Előtte történő Exp. Komp. (Fé)
 CTL_GAMMA_SLOPE;Gamma/Lejtés
 CTL_GAMUT_COMPRESSION;Színtartomány tömörítése
-CTL_GENERALISED_HYPERBOLIC_STRETCH;Általánosított hiperbolikus nyújtás
+CTL_GENERALISED_HYPERBOLIC_STRETCH;Általánosított hiperbolikus nyújtás (GHS)
 CTL_GLOBAL_BRILLIANCE;Globális ragyogás
 CTL_GLOBAL_CHROMA;Globális színesség
 CTL_GLOBAL_SATURATION;Globális telítettség
-CTL_GRAPHICAL_EQUALIZER_BY_HUE;Grafikus kiegyenlítő színárnyalat szerint
-CTL_GRAPHICAL_EQUALIZER_BY_LUMINANCE;Grafikus kiegyenlítő világosság szerint
+CTL_GRAPHICAL_EQUALIZER_BY_HUE;Grafikus kiegyenlítő színezet szerint
+CTL_GRAPHICAL_EQUALIZER_BY_LUMINANCE;Grafikus kiegyenlítő fényerő szerint
 CTL_GRAPHICAL_EQUALIZER_BY_SATURATION;Grafikus kiegyenlítő telítettség szerint
 CTL_GREEN;Zöld
 CTL_HIGHLIGHTS;Csúcsfények
 CTL_HIGHLIGHT_PROTECTION_POINT;Csúcsfényvédelmi pont (HP)
-CTL_HUE;Színárnyalat
-CTL_HUE_PRESERVATION;Színárnyalat megőrzése
-CTL_HUE_SHIFT;Színárnyalat-eltolódás
+CTL_HUE;Színezet
+CTL_HUE_PRESERVATION;Színezet megőrzése
+CTL_HUE_SHIFT;Színezet-eltolás
 CTL_LIGHTNESS;Világosság
 CTL_LIMIT;Korlát
 CTL_LINEAR_CHROMA_GRADING;Lineáris színesség korrekció
 CTL_LOCAL_STRETCH_INTENSITY;Helyi nyújtási intenzitás (b)
-CTL_LUMINANCE;Világosság
+CTL_LUMINANCE;Fényerő
 CTL_MAGENTA;Bíborvörös
 CTL_MIDTONES;Középtónusok
 CTL_MODE;Mód
@@ -68,13 +68,13 @@ CTL_OFFSET_LIFT;Kiegyenlítés/Kiemelés
 CTL_PERCEPTUAL_BRILLIANCE_GRADING;Észlelési ragyogás korrekció
 CTL_PERCEPTUAL_SATURATION_GRADING;Észlelési telítettség korrekció
 CTL_POSTERIZATION;Poszterizáció
-CTL_PRESERVE_LUMINANCE;Világosság megőrzése
+CTL_PRESERVE_LUMINANCE;Fényerő megőrzése
 CTL_PURE;Tiszta
 CTL_RED;Vörös
 CTL_REVERSE;Fordított
 CTL_ROLL_OFF;Hatáscsökkenés árnyékokban
 CTL_SATURATION;Telítettség
-CTL_SCALE_MID_GRAY_WITH_WP;Középszürke skála Fehér ponttal
+CTL_SCALE_MID_GRAY_WITH_WP;Középszürke skála fehér ponttal
 CTL_SHADOW_LIFTING;Árnyékok kiemelése
 CTL_SHADOW_PROTECTION_POINT;Árnyékvédelmi pont (LP)
 CTL_SHADOWS;Árnyékok
@@ -93,7 +93,7 @@ CTL_TARGET_SPACE;Célterület
 CTL_TETRAHEDRAL_COLOR_WARPING_HSL;Tetraéderes színátalakítás (HSL)
 CTL_TETRAHEDRAL_COLOR_WARPING_RGB;Tetraéderes színátalakítás (RGB)
 CTL_THRESHOLD;Küszöb
-CTL_TINT_BY_LUMINANCE;Színárnyalat világosság szerint
+CTL_TINT_BY_LUMINANCE;Színezés fényerő szerint
 CTL_TONE_CURVE;Tónusgörbe
 CTL_VIBRANCE;Élénkség
 CTL_VIVID;Élénk
@@ -101,3 +101,7 @@ CTL_WB_AND_PRIMARIES_CORRECTION;Fehéregyensúly és elsődleges színek korrekc
 CTL_WHITE;Fehér
 CTL_WHITE_POINT;Fehér pont
 CTL_YELLOW;Sárga
+CTL_WHITE_RELATIVE_EXPOSURE;Fehér relatív expozíció
+CTL_BLACK_RELATIVE_EXPOSURE;Fekete relatív expozíció
+CTL_FORWARD_LIN_LOG;Előre (lineárisról logaritmikusra)
+CTL_FORWARD_LOG_LIN;Fordított (logaritmikusról lineárisra)
