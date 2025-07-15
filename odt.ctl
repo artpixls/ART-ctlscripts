@@ -31,7 +31,9 @@ SOFTWARE.
 // @ART-label: "$CTL_ART_OUTPUT_TRANSFORM;ART output transform"
 // 
 
+// @ART-param: ["mode", "Color mode", ["Neutral", "Blender-AgX"], 0]
 // @ART-param: ["evgain", "$CTL_GAIN;Gain (Ev)", -4.0, 4.0, 0.0, 0.01]
+// @ART-param: ["brightness", "Brightness", -100, 100, 0]
 // @ART-param: ["contrast", "$CTL_CONTRAST;Contrast", -100, 100, 25]
 // @ART-param: ["sat", "$CTL_SATURATION;Saturation", -100, 100, 0]
 // @ART-param: ["white_point", "$CTL_WHITE_POINT;White point", 0.8, 40.0, 1.0, 0.1]
@@ -141,9 +143,20 @@ const float base_dl[3] = {1.1, 1.2, 1.5};
 const float base_th[3] = {0.85, 0.75, 0.95};
 
 const float mid_gray_in = 0.18;
-const float usr_mid_gray_out = 0.18;
+//const float usr_mid_gray_out = 0.18;
 const float black_point = 1.0/4096.0;
 
+const float AgXInsetMatrix[3][3] = {
+    {0.856627153315983, 0.0951212405381588, 0.0482516061458583},
+    {0.137318972929847, 0.761241990602591, 0.101439036467562},
+    {0.11189821299995, 0.0767994186031903, 0.811302368396859}
+};
+const float AgXInsetMatrix_t[3][3] = transpose_f33(AgXInsetMatrix);
+
+const float AgXOutsetMatrix_t[3][3] = invert_f33(AgXInsetMatrix_t);
+
+const int MODE_NEUTRAL = 0;
+const int MODE_BLENDERAGX = 1;
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,
@@ -152,7 +165,8 @@ void ART_main(varying float r, varying float g, varying float b,
               float evgain,
               int contrast, int sat, float white_point,
               bool scale_mid_gray, int gc_colorspace, float gc_strength,
-              float hue_preservation)
+              float hue_preservation,
+              int mode, int brightness)
 {
     float gain = pow(2, evgain);
     float rgb[3] = { r * gain, g * gain, b * gain };
@@ -181,6 +195,8 @@ void ART_main(varying float r, varying float g, varying float b,
         rgb = gamut_compress(rgb, th, dl, to_out, from_out);
     }
 
+    float usr_mid_gray_out = mid_gray_in + brightness / 300.0;
+
     float mid_gray_out;
     if (scale_mid_gray) {
         const float dr = white_point - black_point;
@@ -188,27 +204,48 @@ void ART_main(varying float r, varying float g, varying float b,
     } else {
         mid_gray_out = usr_mid_gray_out;
     }
+
+    float sat_factor = 1.0;
+    if (contrast != 0) {
+        sat_factor = 1 - contrast / 750.0;
+    }
+    sat_factor = sat_factor * (sat + 100.0) / 100.0;
+
+    if (mode == MODE_BLENDERAGX) {
+        rgb = mult_f3_f33(rgb, AgXInsetMatrix_t);
+    }
     
     const float target_slope = 1.0;
     float res[3] = tonemap(rgb[0], rgb[1], rgb[2],
                            target_slope, white_point, black_point,
                            mid_gray_in, mid_gray_out);
 
-    float sat_factor = 1.0;
     if (contrast != 0) {
-        const float pivot = mid_gray_out / white_point;
+        const float pivot = mid_gray_in / white_point;
         const float c = pow(fabs(contrast / 100.0), 1.5) * 16.0;
         const float b = ite(contrast > 0, 1 + c, 1.0 / (1 + c));
         const float a = log((exp(log(b) * pivot) - 1) / (b - 1)) / log(pivot);
         for (int i = 0; i < 3; i = i+1) {
             res[i] = display_contrast(res[i], a, b, white_point, black_point);
         }
-        sat_factor = 1 - contrast / 750.0;
     }
-    sat_factor = sat_factor * (sat + 100.0) / 100.0;
 
-    res = creative_hue_sat_tweaks(1.0 - hue_preservation, sat_factor, r, g, b,
-                                  white_point, res);
+    if (mode == MODE_BLENDERAGX) {
+        res = mult_f3_f33(res, AgXOutsetMatrix_t);
+        if (hue_preservation > 0 || sat != 0) {
+            float hsl[3] = rgb2hsl(res[0], res[1], res[2]);
+            if (hue_preservation > 0) {
+                float hue = rgb2hsl(r, g, b)[0];
+                hsl[0] = intp(hue_preservation, hue, hsl[0]);
+            }
+            hsl[1] = hsl[1] * sat_factor;
+            res = hsl2rgb(hsl);
+        }
+    } else {
+        res = creative_hue_sat_tweaks(1.0 - hue_preservation,
+                                      sat_factor, r, g, b,
+                                      white_point, res);
+    }
 
     rout = clamp(res[0], 0, white_point);
     gout = clamp(res[1], 0, white_point);
