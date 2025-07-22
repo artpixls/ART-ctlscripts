@@ -232,7 +232,7 @@ void ART_main(varying float r, varying float g, varying float b,
 
     if (mode == MODE_BLENDERAGX) {
         res = mult_f3_f33(res, AgXOutsetMatrix_t);
-        if (hue_preservation > 0 || sat != 0) {
+        if (hue_preservation > 0 || sat_factor != 1.0) {
             float hsl[3] = rgb2hsl(res[0], res[1], res[2]);
             if (hue_preservation > 0) {
                 float hue = rgb2hsl(r, g, b)[0];
