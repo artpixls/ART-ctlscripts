@@ -37,6 +37,7 @@ SOFTWARE.
 // @ART-param: ["contrast", "$CTL_CONTRAST;Contrast", -100, 100, 25]
 // @ART-param: ["sat", "$CTL_SATURATION;Saturation", -100, 100, 0]
 // @ART-param: ["white_point", "$CTL_WHITE_POINT;White point", 0.8, 40.0, 1.0, 0.1]
+// @ART-param: ["user_black_point", "$CTL_BLACK_POINT;Black point", -0.05, 0.05, 0.0, 0.0001]
 // @ART-param: ["scale_mid_gray", "$CTL_SCALE_MID_GRAY_WITH_WP;Scale mid gray with white point", false]
 // @ART-param: ["gc_colorspace", "$CTL_TARGET_SPACE;Target space", ["$CTL_NONE;None", "Rec.2020", "Rec.709 / sRGB", "DCI-P3", "Adobe RGB"], 2, "$CTL_GAMUT_COMPRESSION;Gamut compression"]
 // @ART-param: ["gc_strength", "$CTL_STRENGTH;Strength", 0.7, 2, 1, 0.01, "$CTL_GAMUT_COMPRESSION;Gamut compression"]
@@ -144,7 +145,7 @@ const float base_th[3] = {0.85, 0.75, 0.95};
 
 const float mid_gray_in = 0.18;
 //const float usr_mid_gray_out = 0.18;
-const float black_point = 1.0/4096.0;
+const float base_black_point = 1.0/4096.0;
 
 const float AgXInsetMatrix[3][3] = {
     {0.856627153315983, 0.0951212405381588, 0.0482516061458583},
@@ -166,7 +167,7 @@ void ART_main(varying float r, varying float g, varying float b,
               int contrast, int sat, float white_point,
               bool scale_mid_gray, int gc_colorspace, float gc_strength,
               float hue_preservation,
-              int mode, int brightness)
+              int mode, int brightness, float user_black_point)
 {
     float gain = pow(2, evgain);
     float rgb[3] = { r * gain, g * gain, b * gain };
@@ -197,6 +198,7 @@ void ART_main(varying float r, varying float g, varying float b,
 
     float usr_mid_gray_out = mid_gray_in + brightness / 300.0;
 
+    float black_point = base_black_point + user_black_point;
     float mid_gray_out;
     if (scale_mid_gray) {
         const float dr = white_point - black_point;
