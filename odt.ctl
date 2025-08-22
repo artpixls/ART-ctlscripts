@@ -31,7 +31,7 @@ SOFTWARE.
 // @ART-label: "$CTL_ART_OUTPUT_TRANSFORM;ART output transform"
 // 
 
-// @ART-param: ["mode", "Color mode", ["Neutral", "Blender-AgX"], 0]
+// @ART-param: ["mode", "Color mode", ["Legacy", "Blender-AgX", "Neutral"], 2]
 // @ART-param: ["evgain", "$CTL_GAIN;Gain (Ev)", -4.0, 4.0, 0.0, 0.01]
 // @ART-param: ["brightness", "Brightness", -100, 100, 0]
 // @ART-param: ["contrast", "$CTL_CONTRAST;Contrast", -100, 100, 25]
@@ -112,29 +112,84 @@ float[3] tonemap(float p_R, float p_G, float p_B,
 }
 
 
-const float rhue = rgb2hsl(1, 0, 0)[0];
-const float bhue = rgb2hsl(0, 0, 1)[0];
-const float yhue = rgb2hsl(1, 1, 0)[0];
-const float ohue = rgb2hsl(1, 0.5, 0)[0];
-const float yrange = fabs(ohue - yhue) * 0.8;
-const float rrange = fabs(ohue - rhue);
-const float brange = rrange;
+float[3] to_hsl(float r, float g, float b, int mode)
+{
+    if (mode == 0) {
+        return rgb2hsl(r, g, b);
+    } else {
+        return rgb2okhcl(r, g, b);
+    }
+}
+
+const float rec2020_xyz_t[3][3] = invert_f33(xyz_rec2020_t);
+
+float[3] to_rgb(float hsl[3], int mode)
+{
+    if (mode == 0) {
+        return hsl2rgb(hsl);
+    } else {
+        return okhcl2rgb(hsl);
+    }
+}
+
+const float hpars[2][4] = { // parameters for hue tweaks
+    {
+        rgb2hsl(1, 0, 0)[0], // rhue
+        rgb2hsl(0, 0, 1)[0], // bhue
+        rgb2hsl(1, 1, 0)[0], // yhue
+        rgb2hsl(1, 0.5, 0)[0] // ohue
+    },
+    {
+        rgb2okhcl(1, 0, 0)[0], // rhue
+        rgb2okhcl(0, 0, 1)[0], // bhue
+        rgb2okhcl(1, 1, 0)[0], // yhue
+        rgb2okhcl(1, 0.5, 0)[0] // ohue
+    }
+};
+
+const float rpars[2][3] = {
+    {
+        fabs(hpars[0][3] - hpars[0][2]) * 0.8,
+        fabs(hpars[0][3] - hpars[0][0]),
+        fabs(hpars[0][3] - hpars[0][0])
+    },
+    {
+        fabs(hpars[1][3] - hpars[1][2]) * 0.8,
+        fabs(hpars[1][3] - hpars[1][0]),
+        fabs(hpars[1][3] - hpars[1][0])
+    }
+};
+/* const float rhue = to_hsl(1, 0, 0)[0]; */
+/* const float bhue = to_hsl(0, 0, 1)[0]; */
+/* const float yhue = to_hsl(1, 1, 0)[0]; */
+/* const float ohue = to_hsl(1, 0.5, 0)[0]; */
+/* const float yrange = fabs(ohue - yhue) * 0.8; */
+/* const float rrange = fabs(ohue - rhue); */
+/* const float brange = rrange; */
 
 float[3] creative_hue_sat_tweaks(float hue_shift_amount, float sat_factor,
                                  float in_r, float in_g, float in_b,
-                                 float white_point, float rgb[3])
+                                 float white_point, float rgb[3], int mode)
 {
-    float hue = rgb2hsl(in_r, in_g, in_b)[0];
+    const float rhue = hpars[mode][0];
+    const float bhue = hpars[mode][1];
+    const float yhue = hpars[mode][2];
+    const float ohue = hpars[mode][3];
+    const float yrange = rpars[mode][0];
+    const float rrange = rpars[mode][1];
+    const float brange = rpars[mode][2];
+    
+    float hue = to_hsl(in_r, in_g, in_b, mode)[0];
     const float base_shift = 15.0 * hue_shift_amount;
     float hue_shift = base_shift * M_PI / 180.0 * gauss(rhue, rrange, hue);
     hue_shift = hue_shift + -base_shift * M_PI / 180.0 * gauss(bhue, brange, hue);
     hue_shift = hue_shift * clamp((rgb[0] + rgb[1] + rgb[2]) / (3.0 * white_point), 0, 1);
     hue = hue + hue_shift;
     
-    float hsl[3] = rgb2hsl(rgb[0], rgb[1], rgb[2]);
+    float hsl[3] = to_hsl(rgb[0], rgb[1], rgb[2], mode);
     hsl[0] = hue;
     hsl[1] = hsl[1] * sat_factor;
-    float res[3] = hsl2rgb(hsl);
+    float res[3] = to_rgb(hsl, mode);
     return res;
 }
 
@@ -156,8 +211,9 @@ const float AgXInsetMatrix_t[3][3] = transpose_f33(AgXInsetMatrix);
 
 const float AgXOutsetMatrix_t[3][3] = invert_f33(AgXInsetMatrix_t);
 
-const int MODE_NEUTRAL = 0;
+const int MODE_NEUTRAL = 2;
 const int MODE_BLENDERAGX = 1;
+const int MODE_LEGACY = 0;
 
 void ART_main(varying float r, varying float g, varying float b,
               output varying float rout,
@@ -235,18 +291,18 @@ void ART_main(varying float r, varying float g, varying float b,
     if (mode == MODE_BLENDERAGX) {
         res = mult_f3_f33(res, AgXOutsetMatrix_t);
         if (hue_preservation > 0 || sat_factor != 1.0) {
-            float hsl[3] = rgb2hsl(res[0], res[1], res[2]);
+            float hsl[3] = to_hsl(res[0], res[1], res[2], 1);
             if (hue_preservation > 0) {
-                float hue = rgb2hsl(r, g, b)[0];
+                float hue = to_hsl(r, g, b, 1)[0];
                 hsl[0] = intp(hue_preservation, hue, hsl[0]);
             }
             hsl[1] = hsl[1] * sat_factor;
-            res = hsl2rgb(hsl);
+            res = to_rgb(hsl, 1);
         }
     } else {
         res = creative_hue_sat_tweaks(1.0 - hue_preservation,
                                       sat_factor, r, g, b,
-                                      white_point, res);
+                                      white_point, res, fmin(mode, 1));
     }
 
     rout = clamp(res[0], 0, white_point);
